@@ -1,0 +1,110 @@
+[{
+  "_id": {
+    "$oid": "66a6790e5856bbb233ffbd73"
+  },
+  "name": "Test",
+  "email": "Test@gmail.co.uk",
+  "password": "$2b$10$R8yObuA4YWoEx17R1YLZjOK1Iw2oSdPBpi6xYUrEPaV0O6ou.IjWm",
+  "role": "employee",
+  "isActive": true,
+  "lastSeen": {
+    "$date": "2024-07-26T14:19:36.858Z"
+  },
+  "gender": "male",
+  "worksIn": "66a21521a36302be430f892d",
+  "createdAt": {
+    "$date": "2024-07-28T16:59:58.023Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-28T16:59:58.023Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c742d1d15153894a216db4"
+  },
+  "name": "Tanay kumar",
+  "email": "tanaytest@gmail.com",
+  "password": "$2b$10$qthOVyAJYEqboxVgfBBPi.hhaoB27bXA7dIZl9V64e20ofDlMlGOu",
+  "role": "manager",
+  "isActive": true,
+  "lastSeen": {
+    "$date": "2024-08-22T14:08:55.662Z"
+  },
+  "gender": "male",
+  "createdAt": {
+    "$date": "2024-08-22T13:53:21.902Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T14:08:55.663Z"
+  },
+  "__v": 0,
+  "worksIn": "66c74345d15153894a216dc2"
+},
+{
+  "_id": {
+    "$oid": "66efdcead6e1113677587e69"
+  },
+  "name": "George Nicklin",
+  "email": "gnicklin80@hotmail.co.uk",
+  "password": "$2b$10$SdA0Hkj6lpU7bwVukejsVOXok1FJKcmV7ilxpHNNMPoqJCpz7TxNG",
+  "role": "admin",
+  "isActive": true,
+  "lastSeen": {
+    "$date": "2024-10-17T22:09:01.867Z"
+  },
+  "gender": "male",
+  "createdAt": {
+    "$date": "2024-09-22T09:01:30.076Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T22:09:01.868Z"
+  },
+  "__v": 0,
+  "worksIn": "66efdd67d6e1113677587e77"
+},
+{
+  "_id": {
+    "$oid": "66f760a55bef7d49a1bf0656"
+  },
+  "name": "Admin",
+  "email": "losgrapeos@gmail.com",
+  "password": "$2b$10$SdA0Hkj6lpU7bwVukejsVOXok1FJKcmV7ilxpHNNMPoqJCpz7TxNG",
+  "role": "admin",
+  "isActive": true,
+  "lastSeen": {
+    "$date": "2024-10-19T05:13:49.864Z"
+  },
+  "gender": "male",
+  "createdAt": {
+    "$date": "2024-09-22T09:01:30.076Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-19T05:13:49.865Z"
+  },
+  "__v": 0,
+  "worksIn": "66efdd67d6e1113677587e77"
+},
+{
+  "_id": {
+    "$oid": "670fc8ba555c561cea090427"
+  },
+  "name": "Jack",
+  "email": "jack@gmail.com",
+  "password": "$2b$10$BcQf.4TNZE6RowGyqIhGxOHYf8CNxCZuF8CdL6hwVjzKz7EpVYmyS",
+  "role": "employee",
+  "isActive": true,
+  "lastSeen": {
+    "$date": "2024-10-16T13:16:37.974Z"
+  },
+  "gender": "male",
+  "worksIn": "66efdd67d6e1113677587e77",
+  "createdAt": {
+    "$date": "2024-10-16T14:07:54.289Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-16T14:07:54.289Z"
+  },
+  "__v": 0
+}]

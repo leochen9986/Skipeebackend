@@ -1,0 +1,133 @@
+[{
+  "_id": {
+    "$oid": "66b4f48afada4144ad0eb8a7"
+  },
+  "name": "Park Run",
+  "description": "Just a run in the park",
+  "image": "https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/images%2F1723135115364_007.jpg?alt=media&token=d1ece476-251a-4306-897a-98f2f95cbc8a",
+  "date": {
+    "$date": "2024-08-09T00:00:00.000Z"
+  },
+  "startTime": "13:00",
+  "endTime": "20:00",
+  "location": "",
+  "site": {
+    "$oid": "66b4f2cbfada4144ad0eb831"
+  },
+  "lastEntryTime": "19:00",
+  "minAgeLimit": null,
+  "tickets": [],
+  "owner": {
+    "$oid": "66b4f284fada4144ad0eb813"
+  },
+  "status": "completed",
+  "createdAt": {
+    "$date": "2024-08-08T16:38:34.916Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-09T09:03:38.152Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b6ffa4fada4144ad0ec139"
+  },
+  "name": "Friday night shuffle",
+  "description": "It happens on Friday",
+  "image": "https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/images%2F1723269028468_Ford%20jumping%20crest.jpg?alt=media&token=e83cd6b7-7114-4d2a-9b07-bf1d914550b6",
+  "date": {
+    "$date": "2024-08-16T00:00:00.000Z"
+  },
+  "startTime": "21:00",
+  "endTime": "02:00",
+  "location": "1st, Aspirations, Baner - Mahalunge Rd, behind Absolute Barbecue, opposite Comfort Inn hotel, Baner, Pune, Maharashtra 411045, India",
+  "site": {
+    "$oid": "66b4f2cbfada4144ad0eb831"
+  },
+  "lastEntryTime": "00:00",
+  "minAgeLimit": null,
+  "tickets": [],
+  "owner": {
+    "$oid": "66b4f284fada4144ad0eb813"
+  },
+  "status": "completed",
+  "createdAt": {
+    "$date": "2024-08-10T05:50:28.444Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-16T07:56:12.605Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c74937d15153894a2170b6"
+  },
+  "name": "August 22",
+  "description": "",
+  "image": "https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/images%2F1724336438464_Arrowhead3.png?alt=media&token=f3ed8794-d36a-4a48-8529-658dfc7aedb9",
+  "date": {
+    "$date": "2024-08-29T00:00:00.000Z"
+  },
+  "startTime": "20:00",
+  "endTime": "03:00",
+  "location": "19, 21 Elvet Bridge, Durham DH1 3AA, UK",
+  "site": {
+    "$oid": "66c747b8d15153894a217000"
+  },
+  "lastEntryTime": "",
+  "minAgeLimit": null,
+  "tickets": [
+    {
+      "$oid": "66c74977d15153894a2170c4"
+    }
+  ],
+  "owner": {
+    "$oid": "66c747a0d15153894a216ff2"
+  },
+  "status": "completed",
+  "createdAt": {
+    "$date": "2024-08-22T14:20:39.924Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T10:25:52.590Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66f18218d6e11136775899ec"
+  },
+  "name": "t",
+  "description": "",
+  "image": "https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/images%2F1727103511081_krades.png?alt=media&token=6c8ab1d8-3f61-427c-9659-3c7c06355d0e",
+  "date": null,
+  "endDate": {
+    "$date": "2028-01-01T23:59:59.000Z"
+  },
+  "startTime": "",
+  "endTime": "",
+  "location": "",
+  "site": {
+    "$oid": "66efdd67d6e1113677587e77"
+  },
+  "lastEntryTime": "",
+  "minAgeLimit": null,
+  "tickets": [
+    {
+      "$oid": "66f1822ad6e11136775899fa"
+    }
+  ],
+  "owner": {
+    "$oid": "66efdcead6e1113677587e69"
+  },
+  "status": "upcoming",
+  "createdAt": {
+    "$date": "2024-09-23T14:58:32.076Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-23T14:58:50.948Z"
+  },
+  "__v": 1
+}]

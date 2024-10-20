@@ -1,0 +1,133 @@
+[{
+  "_id": {
+    "$oid": "66b4ca50584c6373644c6d9f"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T19:08:23.027Z"
+  },
+  "description": "dhdusb",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 19:08:23.027059",
+  "createdAt": {
+    "$date": "2024-08-08T13:38:24.621Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T13:38:24.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b4caac584c6373644c6da9"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T19:09:54.701Z"
+  },
+  "description": "dhdusb",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 19:09:54.701815",
+  "createdAt": {
+    "$date": "2024-08-08T13:39:56.219Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T13:39:56.219Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b4cac3584c6373644c6db3"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T19:10:17.201Z"
+  },
+  "description": "dhdusb",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 19:10:17.201804",
+  "createdAt": {
+    "$date": "2024-08-08T13:40:19.090Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T13:40:19.090Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b4cb03584c6373644c6dbd"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T19:11:22.196Z"
+  },
+  "description": "dhdusb",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 19:11:22.196449",
+  "createdAt": {
+    "$date": "2024-08-08T13:41:23.704Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T13:41:23.704Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b4cb30584c6373644c6dc7"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T19:12:07.071Z"
+  },
+  "description": "jduixjix",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 19:12:07.071932",
+  "createdAt": {
+    "$date": "2024-08-08T13:42:08.980Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T13:42:08.980Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b4e102fada4144ad0eb5ed"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T20:45:12.937Z"
+  },
+  "description": "cvbb",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 20:45:12.937154",
+  "createdAt": {
+    "$date": "2024-08-08T15:15:14.673Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T15:15:14.673Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66b4e510fada4144ad0eb6ac"
+  },
+  "reportedBy": "66a2142ca36302be430f8903",
+  "incidentDate": {
+    "$date": "2024-08-08T16:32:31.891Z"
+  },
+  "description": "injury as person A shoved person B\n",
+  "site": "66a21521a36302be430f892d",
+  "investigationNotes": "2024-08-08 16:32:31.891848",
+  "createdAt": {
+    "$date": "2024-08-08T15:32:32.750Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-08T15:32:32.750Z"
+  },
+  "__v": 0
+}]

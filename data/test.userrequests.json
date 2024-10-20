@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "66c1b45a4fc98a8feee3f016"
+  },
+  "email": "tanay.deo388@gmail.com",
+  "approved": true,
+  "createdAt": {
+    "$date": "2024-08-18T08:44:10.936Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-18T08:44:27.383Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c29ae25420a66094988d21"
+  },
+  "email": "deo.tanay388@gmail.com",
+  "approved": true,
+  "createdAt": {
+    "$date": "2024-08-19T01:07:46.204Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T13:40:01.869Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c746bed15153894a216f27"
+  },
+  "email": "test22@gmail.com",
+  "approved": true,
+  "createdAt": {
+    "$date": "2024-08-22T14:10:06.046Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T14:10:26.916Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66efda5ed6e1113677587d69"
+  },
+  "email": "gnicklin80@hotmail.co.uk",
+  "approved": true,
+  "createdAt": {
+    "$date": "2024-09-22T08:50:38.072Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-22T08:58:20.350Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f75f073b78b4189ac750c6"
+  },
+  "email": "rdeo2063@gmail.com",
+  "approved": false,
+  "createdAt": {
+    "$date": "2024-09-28T01:42:31.274Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-28T01:42:31.274Z"
+  },
+  "__v": 0
+}]

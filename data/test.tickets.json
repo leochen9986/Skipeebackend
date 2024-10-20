@@ -1,0 +1,1268 @@
+[{
+  "_id": {
+    "$oid": "66a22d2da36302be430f8a8e"
+  },
+  "name": "Tanay Deo",
+  "phone": "+91 8603066047",
+  "amount": 20,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 4,
+  "isScaned": true,
+  "isConfirmed": false,
+  "createdAt": {
+    "$date": "2024-07-25T10:47:09.153Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.502Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a22ddca36302be430f8a9d"
+  },
+  "name": "Tanay Deo",
+  "phone": "+91 8603066047",
+  "amount": 15,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 3,
+  "isScaned": true,
+  "isConfirmed": false,
+  "createdAt": {
+    "$date": "2024-07-25T10:50:04.242Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.417Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a2307ad8d2c8ee50ada0a7"
+  },
+  "name": "Tanay Deo",
+  "phone": "+91 8603066047",
+  "amount": 15,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 3,
+  "isScaned": true,
+  "isConfirmed": false,
+  "createdAt": {
+    "$date": "2024-07-25T11:01:14.666Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.339Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a38dd85f831e195157f4ff"
+  },
+  "name": "Test 1 Test 2 ",
+  "phone": "02020202020",
+  "amount": 24,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 12,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-07-26T11:51:52.511Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.256Z"
+  },
+  "__v": 0,
+  "entered": 7,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a38e435f831e195157f535"
+  },
+  "name": "h h",
+  "phone": "h",
+  "amount": 60,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 30,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-07-26T11:53:39.907Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.176Z"
+  },
+  "__v": 0,
+  "entered": 18,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a38f5d5f831e195157f61e"
+  },
+  "name": "Gee Gee",
+  "phone": "00000000",
+  "amount": 80,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 40,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-07-26T11:58:21.421Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.094Z"
+  },
+  "__v": 0,
+  "entered": 32,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a5d5245856bbb233ffbc7b"
+  },
+  "name": "João Souza Silva",
+  "phone": "3121286800",
+  "amount": 10,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 2,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-07-28T05:20:36.244Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:45.014Z"
+  },
+  "__v": 0,
+  "entered": 2,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a679b95856bbb233ffbd94"
+  },
+  "name": "Test  28",
+  "phone": "104",
+  "amount": 200,
+  "eventTicket": "66a216bca36302be430f898e",
+  "noOfUser": 10,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-07-28T17:02:49.834Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.935Z"
+  },
+  "__v": 0,
+  "entered": 10,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a67bd25856bbb233ffbdff"
+  },
+  "name": "T T",
+  "phone": "2",
+  "amount": 30,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 15,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-07-28T17:11:46.015Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.856Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66ad25d756dfc1ce4fbe677c"
+  },
+  "name": "João Souza Silva",
+  "phone": "3121286800",
+  "amount": 15,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 3,
+  "isScaned": false,
+  "isConfirmed": false,
+  "createdAt": {
+    "$date": "2024-08-02T18:30:47.331Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.775Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66ad26d695ec1a1a4a83a607"
+  },
+  "name": "Gottfried Leibniz",
+  "phone": "030303986300",
+  "amount": 15,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 3,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-08-02T18:35:02.175Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.697Z"
+  },
+  "__v": 0,
+  "entered": 3,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66ad3a8b95ec1a1a4a83aab3"
+  },
+  "name": "Geoerge N",
+  "phone": "2020200202",
+  "amount": 25,
+  "eventTicket": "66a216bca36302be430f898d",
+  "noOfUser": 5,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-08-02T19:59:07.990Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.619Z"
+  },
+  "__v": 0,
+  "entered": 5,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66ad3bc995ec1a1a4a83ab2a"
+  },
+  "name": "02Aug T",
+  "phone": "11",
+  "amount": 10,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 5,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-08-02T20:04:25.840Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.541Z"
+  },
+  "__v": 0,
+  "entered": 3,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66ad3c7c95ec1a1a4a83ab62"
+  },
+  "name": "02Aug2 T",
+  "phone": "222",
+  "amount": 8,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 4,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-08-02T20:07:24.908Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.450Z"
+  },
+  "__v": 0,
+  "entered": 4,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66afb76095ec1a1a4a83b4df"
+  },
+  "name": "Kat G",
+  "phone": "0552365280",
+  "amount": 6,
+  "eventTicket": "66a8b3185856bbb233ffc9ba",
+  "noOfUser": 3,
+  "isScaned": true,
+  "isConfirmed": true,
+  "createdAt": {
+    "$date": "2024-08-04T17:16:16.413Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.377Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a6b4585856bbb233ffc199"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b4c77f584c6373644c6cf1"
+  },
+  "name": "T T",
+  "phone": "44444",
+  "amount": 8,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 4,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-08T13:26:23.951Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.295Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b4e475fada4144ad0eb660"
+  },
+  "name": "T08 T08",
+  "phone": "T08",
+  "amount": 2,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-08T15:29:57.076Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.215Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b4e48cfada4144ad0eb68c"
+  },
+  "name": "T08 T08",
+  "phone": "T08",
+  "amount": 10,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 5,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 5,
+  "createdAt": {
+    "$date": "2024-08-08T15:30:20.940Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.135Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b5dc96fada4144ad0ebd9d"
+  },
+  "name": "T T",
+  "phone": "T",
+  "amount": 2,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-09T09:08:38.070Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:44.057Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b5fde7fada4144ad0ebe79"
+  },
+  "name": "DInesh Jumani",
+  "phone": "8238484230",
+  "amount": 112,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 56,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 49,
+  "createdAt": {
+    "$date": "2024-08-09T11:30:47.183Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.977Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b726a8fada4144ad0ec19c"
+  },
+  "name": "j hu",
+  "phone": "000000000",
+  "amount": 4,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 2,
+  "isScaned": false,
+  "isConfirmed": true,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-10T08:36:56.904Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.894Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b78459fada4144ad0ec20a"
+  },
+  "name": "10Aug Aug10",
+  "phone": "10",
+  "amount": 20,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 10,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 10,
+  "createdAt": {
+    "$date": "2024-08-10T15:16:41.620Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.815Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b8f29dfada4144ad0ec280"
+  },
+  "name": "Test Test",
+  "phone": "re",
+  "amount": 20,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 10,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 10,
+  "createdAt": {
+    "$date": "2024-08-11T17:19:25.793Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.736Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b8f3fafada4144ad0ec2f2"
+  },
+  "name": "T T",
+  "phone": "T2",
+  "amount": 2,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": true,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-11T17:25:14.145Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.655Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b8f87afada4144ad0ec36b"
+  },
+  "name": "t t",
+  "phone": "222",
+  "amount": 2,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-11T17:44:26.152Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.577Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66b8f87ffada4144ad0ec373"
+  },
+  "name": "t t",
+  "phone": "222",
+  "amount": 14,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 7,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 7,
+  "createdAt": {
+    "$date": "2024-08-11T17:44:31.385Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.500Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66bb46b8fada4144ad0ec7d0"
+  },
+  "name": "Ashish Garg",
+  "phone": "9023893092",
+  "amount": 2,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": true,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-13T11:42:48.009Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.414Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66bb4ca9fada4144ad0ec98e"
+  },
+  "name": "Ashish Garg",
+  "phone": "9023893092",
+  "amount": 2,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-13T12:08:09.802Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.336Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66be34ddfada4144ad0ec9cb"
+  },
+  "name": "Tanay kumar",
+  "phone": "+91 8603066047",
+  "amount": 6,
+  "eventTicket": "66a216bca36302be430f898f",
+  "noOfUser": 3,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-15T17:03:25.114Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.254Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66c73de8ae6498cdef29a581"
+  },
+  "name": "G G",
+  "phone": "22",
+  "amount": 8,
+  "eventTicket": "66a8b3185856bbb233ffc9ba",
+  "noOfUser": 4,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-22T13:32:24.761Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.177Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a6b4585856bbb233ffc199"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66c74a62d15153894a21714b"
+  },
+  "name": "G G",
+  "phone": "2",
+  "amount": 2,
+  "eventTicket": "66a8b3185856bbb233ffc9ba",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-22T14:25:38.458Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.096Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a6b4585856bbb233ffc199"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66c74a7fd15153894a217168"
+  },
+  "name": "g g",
+  "phone": "2",
+  "amount": 2,
+  "eventTicket": "66a8b3185856bbb233ffc9ba",
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-22T14:26:07.373Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T03:00:43.020Z"
+  },
+  "__v": 0,
+  "event": {
+    "$oid": "66a6b4585856bbb233ffc199"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d3051732c929e55c1b52e2"
+  },
+  "name": "t t",
+  "phone": "3",
+  "amount": 5,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-08-31T11:57:11.820Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T11:57:11.820Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66dc50985a71feaa744c2a2d"
+  },
+  "name": "Tanay kumar",
+  "phone": "tanay.deo388@gmail.com",
+  "amount": 10,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 2,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-07T13:09:44.731Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-07T13:09:44.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66dc52236072977210b4a9b5"
+  },
+  "name": "Tanay kumar",
+  "phone": "tanay.deo388@gmail.com",
+  "amount": 5,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-07T13:16:19.895Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-07T13:16:19.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66dd5267753b41c83d860c43"
+  },
+  "name": "G G",
+  "phone": "g@s.com",
+  "amount": 5,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-08T07:29:43.668Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-08T07:29:43.668Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66dd52c1753b41c83d860c59"
+  },
+  "name": "t t",
+  "phone": "t@t.com",
+  "amount": 5,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-08T07:31:13.199Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-08T07:31:13.199Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66dd9607753b41c83d8614cc"
+  },
+  "name": "G G",
+  "phone": "t@t.com",
+  "amount": 25,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 5,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 3,
+  "createdAt": {
+    "$date": "2024-09-08T12:18:15.040Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-09T10:01:16.128Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ddc65ad6e1113677586b9b"
+  },
+  "name": "George  G",
+  "phone": "g@g.co.uk",
+  "amount": 40,
+  "eventTicket": "66ddc618d6e1113677586b56",
+  "event": {
+    "$oid": "66ddc5e9d6e1113677586b48"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 10,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 10,
+  "createdAt": {
+    "$date": "2024-09-08T15:44:26.131Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-08T15:47:29.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66decfa1d6e1113677586d39"
+  },
+  "name": "Tanay kumar",
+  "phone": "tanay.deo388@gmail.com",
+  "amount": 40,
+  "eventTicket": "66ddc618d6e1113677586b56",
+  "event": {
+    "$oid": "66ddc5e9d6e1113677586b48"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 10,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 6,
+  "createdAt": {
+    "$date": "2024-09-09T10:36:17.938Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-10T08:36:37.502Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66e00550d6e1113677586daf"
+  },
+  "name": "T T",
+  "phone": "t@t.com",
+  "amount": 20,
+  "eventTicket": "66ddc618d6e1113677586b56",
+  "event": {
+    "$oid": "66ddc5e9d6e1113677586b48"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 5,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 2,
+  "createdAt": {
+    "$date": "2024-09-10T08:37:36.501Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-10T08:39:21.766Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef13bad6e1113677587b68"
+  },
+  "name": "G Hhi",
+  "phone": "h@h.com",
+  "amount": 10,
+  "eventTicket": "66dcd28e753b41c83d8609d6",
+  "event": {
+    "$oid": "66dcd263753b41c83d8609c8"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-21T18:43:06.157Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-21T18:43:06.157Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef1fbad6e1113677587b96"
+  },
+  "name": "G H",
+  "phone": "g@g.con",
+  "amount": 30,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 6,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-21T19:34:18.019Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-21T19:34:18.019Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef1fced6e1113677587ba0"
+  },
+  "name": "G G",
+  "phone": "g@g.com",
+  "amount": 5,
+  "eventTicket": "66d1f71832c929e55c1b4ed4",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-21T19:34:38.621Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-21T19:34:38.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef20f8d6e1113677587bca"
+  },
+  "name": "G H",
+  "phone": "g@g.com",
+  "amount": 40,
+  "eventTicket": "66dcd28e753b41c83d8609d6",
+  "event": {
+    "$oid": "66dcd263753b41c83d8609c8"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 4,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-21T19:39:36.489Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-21T19:39:36.489Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f009a2d6e1113677588a6a"
+  },
+  "name": "Luke Nelmes",
+  "phone": "lukenelmes@yahoo.co.uk",
+  "amount": 10,
+  "eventTicket": "66dcd28e753b41c83d8609d6",
+  "event": {
+    "$oid": "66dcd263753b41c83d8609c8"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-22T12:12:18.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-22T12:12:18.122Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f00abfd6e1113677588af5"
+  },
+  "name": "Boris  Johnson",
+  "phone": "borisjohnson@gmail.com",
+  "amount": 10,
+  "eventTicket": "66dcd28e753b41c83d8609d6",
+  "event": {
+    "$oid": "66dcd263753b41c83d8609c8"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-22T12:17:03.309Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-22T12:17:03.309Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f12600d6e11136775893ac"
+  },
+  "name": "Luke Nelmes",
+  "phone": "lukenelmes@yahoo.co.uk",
+  "amount": 10,
+  "eventTicket": "66dcd28e753b41c83d8609d6",
+  "event": {
+    "$oid": "66dcd263753b41c83d8609c8"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "noOfUser": 1,
+  "isScaned": false,
+  "isConfirmed": false,
+  "entered": 0,
+  "createdAt": {
+    "$date": "2024-09-23T08:25:36.751Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-23T08:25:36.751Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f7c16daf6239a5b7363897"
+  },
+  "name": "G G",
+  "phone": "g@g.com",
+  "amount": 46,
+  "eventTicket": "66f1822ad6e11136775899fa",
+  "event": {
+    "$oid": "66f18218d6e11136775899ec"
+  },
+  "site": {
+    "$oid": "66efdd67d6e1113677587e77"
+  },
+  "noOfUser": 2,
+  "isScaned": true,
+  "isConfirmed": true,
+  "entered": 1,
+  "createdAt": {
+    "$date": "2024-09-28T08:42:21.075Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-03T10:12:02.973Z"
+  },
+  "__v": 0
+}]

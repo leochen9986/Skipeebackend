@@ -1,0 +1,464 @@
+[{
+  "_id": {
+    "$oid": "66a216bca36302be430f898d"
+  },
+  "name": "General admission",
+  "totalQuantity": "20",
+  "availableQuantity": "10",
+  "price": "5",
+  "type": "queue",
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-06-05T16:30:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2026-06-05T06:30:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-25T09:11:24.514Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-18T04:02:31.220Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a216bca36302be430f898e"
+  },
+  "name": "VIP Admission",
+  "totalQuantity": "10",
+  "availableQuantity": "0",
+  "price": "20",
+  "type": "queue",
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-10-10T06:30:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2025-10-16T06:30:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-25T09:11:24.514Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-18T04:01:02.252Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a216bca36302be430f898f"
+  },
+  "name": "Normal ticket",
+  "totalQuantity": "1000",
+  "availableQuantity": "884",
+  "price": "2",
+  "type": "entry",
+  "event": {
+    "$oid": "66a215d8a36302be430f897f"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2023-11-10T16:30:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-11-10T06:30:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-25T09:11:24.514Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-13T11:43:12.526Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a67ee65856bbb233ffbe71"
+  },
+  "name": "General admission",
+  "totalQuantity": "250",
+  "availableQuantity": "250",
+  "price": "20",
+  "type": "queue",
+  "event": {
+    "$oid": "66a67e075856bbb233ffbe55"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-07-28T17:23:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-07-31T17:24:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-28T17:24:54.678Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-28T17:24:54.678Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a75b065856bbb233ffc5b0"
+  },
+  "name": "Test 29",
+  "totalQuantity": "15",
+  "availableQuantity": "15",
+  "price": "10",
+  "type": "queue",
+  "event": {
+    "$oid": "66a75acf5856bbb233ffc5a2"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-07-29T09:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-07-31T14:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-29T09:04:06.411Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-29T09:04:06.411Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66a8b3185856bbb233ffc9ba"
+  },
+  "name": "General admission",
+  "totalQuantity": "10",
+  "availableQuantity": "7",
+  "price": "2",
+  "type": "queue",
+  "event": {
+    "$oid": "66a6b4585856bbb233ffc199"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-08-02T20:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-08-31T02:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-07-30T09:32:08.844Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T13:30:58.101Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66c74977d15153894a2170c4"
+  },
+  "name": "Skipee The Queue",
+  "totalQuantity": "1000",
+  "availableQuantity": "1000",
+  "price": "4",
+  "type": "queue",
+  "event": {
+    "$oid": "66c74937d15153894a2170b6"
+  },
+  "site": {
+    "$oid": "66c747b8d15153894a217000"
+  },
+  "saleStartTime": {
+    "$date": "2024-08-21T23:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2025-01-28T00:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-08-22T14:21:43.866Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-22T14:21:43.866Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1b73832c929e55c1b4bbc"
+  },
+  "name": "Queue Skip",
+  "totalQuantity": "100",
+  "availableQuantity": "100",
+  "price": "2",
+  "type": "queue",
+  "event": {
+    "$oid": "66d1b68c32c929e55c1b4bae"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-11-21T21:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-11-21T23:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-08-30T12:12:40.048Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T12:12:40.048Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1f71832c929e55c1b4ed4"
+  },
+  "name": "Entry ticket",
+  "totalQuantity": "200",
+  "availableQuantity": "195",
+  "price": "5",
+  "type": "entry",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-07-31T23:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-11-21T22:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-08-30T16:45:12.342Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-08T12:18:49.354Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d31c9732c929e55c1b5398"
+  },
+  "name": "Queue Skip",
+  "totalQuantity": "20",
+  "availableQuantity": "20",
+  "price": "6",
+  "type": "queue",
+  "event": {
+    "$oid": "66d1f6d932c929e55c1b4ec6"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-11-28T23:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-11-29T01:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-08-31T13:37:27.612Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-07T11:36:54.916Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc54056072977210b4aa99"
+  },
+  "name": "Fast Track",
+  "totalQuantity": "50",
+  "availableQuantity": "50",
+  "price": "12",
+  "type": "queue",
+  "event": {
+    "$oid": "66dc53a56072977210b4aa8b"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-09-06T23:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-09-08T00:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-09-07T13:24:21.104Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-07T13:24:21.104Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dcd28e753b41c83d8609d6"
+  },
+  "name": "T",
+  "totalQuantity": "200",
+  "availableQuantity": "200",
+  "price": "10",
+  "type": "queue",
+  "event": {
+    "$oid": "66dcd263753b41c83d8609c8"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-09-07T22:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2030-09-07T22:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-09-07T22:24:14.223Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-07T22:24:14.223Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66ddc618d6e1113677586b56"
+  },
+  "name": "Queue Skip",
+  "totalQuantity": "20000",
+  "availableQuantity": "19975",
+  "price": "4",
+  "type": "queue",
+  "event": {
+    "$oid": "66ddc5e9d6e1113677586b48"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-09-07T22:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-09-14T22:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-09-08T15:43:20.388Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-10T08:37:59.440Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66efed38d6e111367758833b"
+  },
+  "name": "queue skip",
+  "totalQuantity": "40",
+  "availableQuantity": "40",
+  "price": "2",
+  "type": "queue",
+  "event": {
+    "$oid": "66efebf1d6e11136775882d4"
+  },
+  "site": {
+    "$oid": "66a21521a36302be430f892d"
+  },
+  "saleStartTime": {
+    "$date": "2024-09-16T01:00:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-09-17T23:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-09-22T10:11:04.444Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-22T10:11:04.444Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f180fad6e1113677589970"
+  },
+  "name": "TR",
+  "totalQuantity": "2",
+  "availableQuantity": "2",
+  "price": "2",
+  "type": "queue",
+  "event": {
+    "$oid": "66f180ddd6e1113677589951"
+  },
+  "site": {
+    "$oid": "66efdd67d6e1113677587e77"
+  },
+  "saleStartTime": {
+    "$date": "2024-09-25T05:29:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-09-17T04:00:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-09-23T14:53:46.745Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-23T14:53:46.745Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f1822ad6e11136775899fa"
+  },
+  "name": "Tt",
+  "totalQuantity": "2",
+  "availableQuantity": "0",
+  "price": "23",
+  "type": "queue",
+  "event": {
+    "$oid": "66f18218d6e11136775899ec"
+  },
+  "site": {
+    "$oid": "66efdd67d6e1113677587e77"
+  },
+  "saleStartTime": {
+    "$date": "2024-09-24T06:28:00.000Z"
+  },
+  "saleEndTime": {
+    "$date": "2024-09-30T05:29:00.000Z"
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2024-09-23T14:58:50.802Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-28T08:43:01.603Z"
+  }
+}]
