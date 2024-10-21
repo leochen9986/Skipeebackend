@@ -23,12 +23,21 @@ export class SitesService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly usersService: UsersService,
   ) {}
-  async updateLogo(siteId: string, logoPath: string) {
-    const site = await this.siteModel.findByIdAndUpdate(siteId, { logo: logoPath }, { new: true });
+  async updateLogo(siteId: string, logo: string, userId: string) {
+    // Fetch the site and check if the user is the owner
+    const site = await this.siteModel.findById(siteId);
     if (!site) {
       throw new HttpException('Site not found', HttpStatus.NOT_FOUND);
     }
-    return site;
+
+    // if (site.owner.toString() !== userId) {
+    //   throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    // }
+
+    // Update the logo
+    site.logo = logo;
+    const updatedSite = await site.save();
+    return updatedSite;
   }
   async createSite(createSiteDto: CreateSiteDto, userId: string) {
     const owner = await this.usersService.getUser(userId);
@@ -80,21 +89,26 @@ export class SitesService {
     }
     return result;
   }
-  async getAllSites(search: string) {
-    if (search) {
-      const sites = await this.siteModel
-        .find({ name: new RegExp(search, 'i') })
-        .populate('owner');
-      if (!sites) {
-        throw new HttpException('Failed to get sites', HttpStatus.NOT_FOUND);
-      }
-      return sites;
+  async getAllSites(search: string, archived?: boolean) {
+    const filter: any = {};
+  
+    if (archived !== undefined) {
+      filter.archived = archived;
+    } else {
+      // Default behavior if archived is undefined (e.g., return non-archived sites)
+      filter.archived = false;
     }
-
-    const sites = await this.siteModel.find().populate('owner');
+  
+    if (search) {
+      filter.name = new RegExp(search, 'i');
+    }
+  
+    const sites = await this.siteModel.find(filter).populate('owner');
+  
     if (!sites) {
       throw new HttpException('Failed to get sites', HttpStatus.NOT_FOUND);
     }
+  
     return sites;
   }
   async getSiteById(id: string) {
@@ -106,13 +120,16 @@ export class SitesService {
   }
 
   async deleteSite(id: string) {
-    const result = await this.siteModel.findByIdAndDelete(id);
-    const user = await this.userModel.findByIdAndDelete(result.owner);
-    const userRequest = await this.userModel.findByIdAndDelete(result.owner);
-    if (!result) {
-      throw new HttpException('Failed to delete site', HttpStatus.NOT_FOUND);
+    const site = await this.siteModel.findById(id);
+    if (!site) {
+      throw new HttpException('Site not found', HttpStatus.NOT_FOUND);
     }
-    return result;
+  
+    // Set the archived field to true instead of deleting the site
+    site.archived = true;
+    const updatedSite = await site.save();
+  
+    return updatedSite;
   }
 
   async createEvent(createEventDto: CreateEventDto, userId: string) {

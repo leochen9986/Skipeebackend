@@ -28,6 +28,7 @@ import { CreateEventDto } from './dto/create-events.dto';
 import { Event } from './schemas/event.schema';
 import { CreateEventTicketDto } from './dto/create-event-tickets.dto';
 
+
 @Controller('sites')
 @ApiTags('Sites')
 @ApiBearerAuth()
@@ -47,9 +48,23 @@ export class SitesController {
   @Public()
   @ApiOperation({ summary: 'Get all sites' })
   @ApiQuery({ name: 'search', description: 'Search term', required: false })
+  @ApiQuery({ name: 'archived', description: 'Filter by archived status', required: false })
   @ApiOkResponse({ type: [Site] })
-  getAllSites(@Query('search') search) {
-    return this.sitesService.getAllSites(search);
+  getAllSites(
+    @Query('search') search: string,
+    @Query('archived') archived: string,
+  ) {
+    let isArchived: boolean;
+  
+    if (archived === 'true') {
+      isArchived = true;
+    } else if (archived === 'false') {
+      isArchived = false;
+    } else {
+      isArchived = undefined; // Default to undefined if not provided
+    }
+  
+    return this.sitesService.getAllSites(search, isArchived);
   }
 
   @Put('/:id/request')
@@ -61,6 +76,18 @@ export class SitesController {
     return this.sitesService.requestSite(id, status, user._id);
   }
   
+
+  @Put('/:id/upload-logo')
+  @ApiOperation({ summary: 'Upload logo for a site' })
+  @ApiParam({ name: 'id', description: 'Site id' })
+  @ApiOkResponse({ description: 'Logo uploaded successfully' })
+  uploadLogo(
+    @Param('id') id: string,
+    @Body('logo') logo: string,
+    @FUser() user,
+  ) {
+    return this.sitesService.updateLogo(id, logo, user._id);
+  }
 
   @Public()
   @Get('/events')

@@ -29,6 +29,9 @@ export class Site {
   @Prop({ required: true })
   phone: string;
 
+  @Prop({ default: false })  // Add archived field with a default value of false
+  archived: boolean;
+
   @ApiProperty({ description: 'The logo of the organization' })
   @Prop({ required: true })
   logo: string;
