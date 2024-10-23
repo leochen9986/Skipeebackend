@@ -40,6 +40,11 @@ export class Site {
   @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
   owner: Types.ObjectId;
 
+  @ApiProperty({ description: 'Location of the site' })
+  @Prop({ required: true })
+  location: string;
+
+  
   @ApiProperty({ description: 'Approved' })
   @Prop({ default: true })
   approved: boolean;

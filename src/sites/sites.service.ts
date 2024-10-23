@@ -89,14 +89,17 @@ export class SitesService {
     }
     return result;
   }
-  async getAllSites(search: string, archived?: boolean) {
+  async getAllSites(search: string, archived?: boolean, skipping?: boolean) {
     const filter: any = {};
   
     if (archived !== undefined) {
       filter.archived = archived;
     } else {
-      // Default behavior if archived is undefined (e.g., return non-archived sites)
-      filter.archived = false;
+      filter.archived = false; // Default to non-archived sites
+    }
+  
+    if (skipping !== undefined) {
+      filter.skipping = skipping;  // Add skipping filter
     }
   
     if (search) {
@@ -263,10 +266,10 @@ export class SitesService {
       throw new HttpException('Failed to add tickets', HttpStatus.NOT_FOUND);
     }
 
-    event.tickets = [
-      ...event.tickets.map((ticket) => ticket._id),
-      ...tickets.map((ticket) => ticket._id),
-    ];
+    // event.tickets = [
+    //   ...event.tickets.map((ticket) => ticket._id),
+    //   ...tickets.map((ticket) => ticket._id),
+    // ];
     event.status = eventStatus.UPCOMING;
 
     const result = await event.save();
@@ -312,12 +315,15 @@ export class SitesService {
     return result;
   }
 
-  async getEvents(siteId: string, status: string, search: string, user: any) {
-    const filter = {};
+  async getEvents(siteId: string, siteIds: string[], status: string, search: string, user: any) {
+    const filter: any = {};
 
     if (siteId) {
       filter['site'] = new mongoose.Types.ObjectId(siteId);
+    } else if (siteIds && siteIds.length > 0) {
+      filter['site'] = { $in: siteIds.map((id) => new mongoose.Types.ObjectId(id)) };
     }
+  
 
     if (status) {
       filter['status'] = status;

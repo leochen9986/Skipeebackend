@@ -38,9 +38,9 @@ export class EventTicket {
   @Prop({required: true, type: Types.ObjectId, ref: 'Event'})
   event: Types.ObjectId;
 
-  @ApiProperty({ description: 'Site of ticket'})
-  @Prop({required: true, type: Types.ObjectId, ref: 'Site'})
-  site: Types.ObjectId;
+  // @ApiProperty({ description: 'Site of ticket'})
+  // @Prop({required: true, type: Types.ObjectId, ref: 'Site'})
+  // site: Types.ObjectId;
 
   @ApiProperty({ description: 'Sale Start time of ticket'})
   @Prop({required: true})

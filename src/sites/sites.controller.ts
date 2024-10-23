@@ -49,13 +49,17 @@ export class SitesController {
   @ApiOperation({ summary: 'Get all sites' })
   @ApiQuery({ name: 'search', description: 'Search term', required: false })
   @ApiQuery({ name: 'archived', description: 'Filter by archived status', required: false })
+  @ApiQuery({ name: 'skipping', description: 'Filter by skipping status', required: false }) // Add skipping filter
   @ApiOkResponse({ type: [Site] })
   getAllSites(
     @Query('search') search: string,
     @Query('archived') archived: string,
+    @Query('skipping') skipping: string,  // Add skipping parameter
   ) {
     let isArchived: boolean;
+    let isSkipping: boolean; // Handle skipping flag
   
+    // Parse archived query parameter
     if (archived === 'true') {
       isArchived = true;
     } else if (archived === 'false') {
@@ -64,7 +68,17 @@ export class SitesController {
       isArchived = undefined; // Default to undefined if not provided
     }
   
-    return this.sitesService.getAllSites(search, isArchived);
+    // Parse skipping query parameter
+    if (skipping === 'true') {
+      isSkipping = true;
+    } else if (skipping === 'false') {
+      isSkipping = false;
+    } else {
+      isSkipping = undefined; // Default to undefined if not provided
+    }
+  
+    // Call service method with the skipping filter
+    return this.sitesService.getAllSites(search, isArchived, isSkipping);
   }
 
   @Put('/:id/request')
@@ -95,14 +109,16 @@ export class SitesController {
   @ApiQuery({ name: 'siteId', description: 'Site id', required: false })
   @ApiQuery({ name: 'status', description: 'Request status', required: false })
   @ApiQuery({ name: 'search', description: 'Search term', required: false })
+  @ApiQuery({ name: 'siteIds', required: false, isArray: true, type: [String] })
   @ApiOkResponse({ type: [Event] })
   getEvents(
     @FUser() user,
     @Query('siteId') siteId: string,
+    @Query('siteIds') siteIds: string[],
     @Query('status') status,
     @Query('search') search,
   ) {
-    return this.sitesService.getEvents(siteId, status, search, user);
+    return this.sitesService.getEvents(siteId, siteIds, status, search, user);
   }
 
   @Get('/employees')
