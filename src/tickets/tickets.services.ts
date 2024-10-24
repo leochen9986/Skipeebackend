@@ -140,7 +140,7 @@ export class TicketsServices {
 
       <br/>
       <br/>
-      <strong><a href="https://skipee-web-3xdw.vercel.app/#/book/${check._id}?success=true">Link to get your ticket</a></strong>
+      <strong><a href="http://104.248.165.72:3000/#/book/${check._id}?success=true">Link to get your ticket</a></strong>
       <br/>
       <br/>
 

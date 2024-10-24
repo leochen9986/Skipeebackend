@@ -144,8 +144,8 @@ export class StripeService {
   private async createAccountLink(accountId: string) {
     const link = await this.stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `https://skipee-web-3xdw.vercel.app//#/manage-account`,
-      return_url: `https://skipee-web-3xdw.vercel.app//#/manage-account`,
+      refresh_url: `http://104.248.165.72:3000//#/manage-account`,
+      return_url: `http://104.248.165.72:3000//#/manage-account`,
       type: 'account_onboarding',
     });
 

@@ -135,39 +135,41 @@ export class SitesService {
     return updatedSite;
   }
 
-  async createEvent(createEventDto: CreateEventDto, userId: string) {
+  async createEvent(createEventDto: CreateEventDto, siteId: string, userId: string) {
     const owner = await this.usersService.getUser(userId);
-
+  
     if (!owner) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-
-    const event = await this.siteModel.findOne({
-      owner: owner._id,
-    });
-
-    if (!event || !event.approved) {
-      throw new HttpException(
-        !event ? 'You do not have a venue' : 'Your venue is still in review',
-        HttpStatus.NOT_ACCEPTABLE,
-      );
+    console.log(siteId);
+    // Use the provided siteId from the frontend instead of fetching it based on the owner
+    const site = await this.siteModel.findById(siteId);
+  
+    if (!site) {
+      throw new HttpException('Site not found', HttpStatus.NOT_FOUND);
     }
-
+  
+    if (!site.approved) {
+      throw new HttpException('Your venue is still in review', HttpStatus.NOT_ACCEPTABLE);
+    }
+  
     const createdEvent = new this.eventModel({
       ...createEventDto,
       owner: owner._id,
-      site: event._id,
+      site: site._id, // Use the provided siteId
     });
-    console.log(createdEvent);
+  
     const result = await createdEvent.save();
     if (!result) {
       throw new HttpException('Failed to create event', HttpStatus.NOT_FOUND);
     }
+  
     const newEvent = await this.eventModel
       .findById(result._id)
       .populate('site')
       .populate('owner')
       .populate('tickets');
+    
     return newEvent;
   }
 
@@ -266,10 +268,10 @@ export class SitesService {
       throw new HttpException('Failed to add tickets', HttpStatus.NOT_FOUND);
     }
 
-    // event.tickets = [
-    //   ...event.tickets.map((ticket) => ticket._id),
-    //   ...tickets.map((ticket) => ticket._id),
-    // ];
+    event.tickets = [
+      ...event.tickets.map((ticket) => ticket._id),
+      ...tickets.map((ticket) => ticket._id),
+    ];
     event.status = eventStatus.UPCOMING;
 
     const result = await event.save();
@@ -315,8 +317,10 @@ export class SitesService {
     return result;
   }
 
-  async getEvents(siteId: string, siteIds: string[], status: string, search: string, user: any) {
+  async getEvents(siteId: string, siteIds: string[], status: string[] | string, search: string, user: any) {
+
     const filter: any = {};
+    
 
     if (siteId) {
       filter['site'] = new mongoose.Types.ObjectId(siteId);
@@ -326,11 +330,13 @@ export class SitesService {
   
 
     if (status) {
-      filter['status'] = status;
-    } else {
-      filter['status'] = { $nin: [eventStatus.COMPLETED, eventStatus.DRAFT] };
+      if (Array.isArray(status)) {
+        filter.status = { $in: status };
+      } else {
+        filter.status = status;
+      }
     }
-
+  
     if (search) {
       filter['name'] = new RegExp(search, 'i');
     }

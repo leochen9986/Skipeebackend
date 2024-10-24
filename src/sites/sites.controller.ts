@@ -111,16 +111,25 @@ export class SitesController {
   @ApiQuery({ name: 'search', description: 'Search term', required: false })
   @ApiQuery({ name: 'siteIds', required: false, isArray: true, type: [String] })
   @ApiOkResponse({ type: [Event] })
-  getEvents(
+  async getEvents(
     @FUser() user,
     @Query('siteId') siteId: string,
     @Query('siteIds') siteIds: string[],
-    @Query('status') status,
+    @Query('status') status: string[] | string,
     @Query('search') search,
   ) {
+    // Skip the service call if no valid query parameters are provided
+    if (!siteId && (!siteIds || siteIds.length === 0) && !status && !search) {
+      return {
+        statusCode: 200,
+        message: 'No query parameters provided, returning empty events list',
+        events: [],
+      };
+    }
+  
+    // Pass the parameters to the service if valid
     return this.sitesService.getEvents(siteId, siteIds, status, search, user);
   }
-
   @Get('/employees')
   @ApiOperation({ summary: 'Get all employees for a site' })
   @ApiOkResponse({ type: [FUser] })
@@ -158,8 +167,13 @@ export class SitesController {
   @ApiOperation({ summary: 'Create an event for a site' })
   @ApiBody({ type: CreateEventDto })
   @ApiCreatedResponse({ type: Event })
-  createEvent(@Body() createEventDto: CreateEventDto, @FUser() user) {
-    return this.sitesService.createEvent(createEventDto, user._id);
+  createEvent(
+    @Body() createEventDto: CreateEventDto, 
+    @Body('siteId') siteId: string, 
+    @FUser() user
+  ) {
+    console.log('Site ID:', siteId); // Check if siteId is coming through
+    return this.sitesService.createEvent(createEventDto, siteId, user._id);
   }
 
   @Put('/event/:id')
