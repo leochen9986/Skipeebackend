@@ -69,6 +69,10 @@ export class Event {
   @ApiProperty({ description: 'The status of the event' })
   @Prop({ enum: eventStatus, default: eventStatus.DRAFT })
   status: eventStatus;
+
+  @Prop({ default: false })
+  limitQuantity: boolean;
+
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

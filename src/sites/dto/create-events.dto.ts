@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsOptional, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsString,IsBoolean, IsOptional, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateEventDto {
@@ -67,5 +67,9 @@ export class CreateEventDto {
   })
   @IsOptional()
   minAgeLimit: number;
+
+  @IsOptional()
+  @IsBoolean()
+  limitQuantity?: boolean;
 
 }

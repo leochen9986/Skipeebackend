@@ -27,7 +27,7 @@ import { FUser } from 'src/auth/decorator/user.decorator';
 import { CreateEventDto } from './dto/create-events.dto';
 import { Event } from './schemas/event.schema';
 import { CreateEventTicketDto } from './dto/create-event-tickets.dto';
-
+import { EventTicket } from './schemas/event-ticket.schema';
 
 @Controller('sites')
 @ApiTags('Sites')
@@ -189,18 +189,16 @@ export class SitesController {
     return this.sitesService.updateEvent(id, createEventDto, user._id);
   }
 
-  @Post('/event/:id/ticket')
-  @ApiOperation({ summary: 'Add tickets for an event' })
-  @ApiParam({ name: 'id', description: 'Event id' })
-  @ApiBody({ type: [CreateEventTicketDto] })
-  @ApiCreatedResponse({ type: Event })
+  @Put('/event/ticket/:id')
+  @ApiOperation({ summary: 'Update a ticket by ticket ID' })
   updateEventTicket(
-    @Param('id') id: string,
-    @Body() createEventArrayDto: [CreateEventTicketDto],
+    @Param('id') ticketId: string,
+    @Body() updateEventTicketDto: CreateEventTicketDto,
     @FUser() user,
   ) {
-    return this.sitesService.addTickets(id, createEventArrayDto, user._id);
+    return this.sitesService.updateTicket(ticketId, updateEventTicketDto, user._id);
   }
+  
 
   @Put('/event/:id/ticket')
   @ApiOperation({ summary: 'Edit tickets for an event' })
@@ -214,6 +212,20 @@ export class SitesController {
   ) {
     return this.sitesService.updateTicket(id, updateEventTicketDto, user._id);
   }
+
+  @Post('/event/:id/ticket')
+  @ApiOperation({ summary: 'Add a ticket for an event' })
+  @ApiParam({ name: 'id', description: 'Event id' })
+  @ApiBody({ type: CreateEventTicketDto })
+  @ApiCreatedResponse({ type: EventTicket })
+  addTicket(
+    @Param('id') eventId: string,
+    @Body() createEventTicketDto: CreateEventTicketDto,
+    @FUser() user,
+  ) {
+    return this.sitesService.addTicket(eventId, createEventTicketDto, user._id);
+  }
+
 
   @Delete('/event/:id')
   @ApiOperation({ summary: 'Delete an event by id' })

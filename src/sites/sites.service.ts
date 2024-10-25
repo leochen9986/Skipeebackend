@@ -13,6 +13,7 @@ import { CreateEventTicketDto } from './dto/create-event-tickets.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 import { User } from 'src/users/schemas/user.schema';
 
+
 @Injectable()
 export class SitesService {
   constructor(
@@ -281,39 +282,77 @@ export class SitesService {
     return result;
   }
 
-  async updateTicket(
-    id: string,
-    updateEventTicketDto: CreateEventTicketDto,
-    userId: any,
+  async addTicket(
+    eventId: string,
+    createEventTicketDto: CreateEventTicketDto,
+    userId: string,
   ) {
+    // Fetch the user
     const user = await this.usersService.getUser(userId);
-
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-
-    const eventTicket = await this.eventTicketModel
-      .findById(id)
-      .populate('event');
-
-    if (
-      !eventTicket.event ||
-      !(eventTicket.event as any).owner ||
-      (eventTicket.event as any).owner._id.toString() !== user._id.toString()
-    ) {
+  
+    // Fetch the event
+    const event = await this.eventModel.findById(eventId).populate('owner').populate('site');
+    if (!event) {
       throw new HttpException('Event not found', HttpStatus.NOT_FOUND);
     }
-
-    const result = await this.eventTicketModel.findByIdAndUpdate(id, {
-      ...updateEventTicketDto,
-      availableQuantity:
-        updateEventTicketDto.totalQuantity -
-        parseInt(eventTicket.totalQuantity) +
-        parseInt(eventTicket.availableQuantity),
-    });
-    if (!result) {
-      throw new HttpException('Failed to update tickets', HttpStatus.NOT_FOUND);
+  
+    // Check if the user is the owner of the event
+    if (event.owner._id.toString() !== user._id.toString()) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
+  
+    // Create the ticket data
+    const ticketData = {
+      ...createEventTicketDto,
+      site: event.site._id,
+      event: event._id,
+      availableQuantity: createEventTicketDto.totalQuantity,
+    };
+  
+    // Create and save the ticket
+    const ticket = new this.eventTicketModel(ticketData);
+    const savedTicket = await ticket.save();
+    if (!savedTicket) {
+      throw new HttpException('Failed to add ticket', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  
+    // Add the ticket to the event
+    event.tickets.push(savedTicket._id);
+    event.status = eventStatus.UPCOMING; // Update event status if necessary
+    await event.save();
+  
+    // Return the saved ticket
+    return savedTicket;
+  }
+
+  async updateTicket(
+    ticketId: string,
+    updateEventTicketDto: CreateEventTicketDto,
+    userId: any,
+  ) {
+    // Fetch the ticket by ticketId
+    const eventTicket = await this.eventTicketModel
+      .findById(ticketId)
+      .populate('event');
+  
+    // Validate permissions and existence
+    if (!eventTicket || !eventTicket.event) {
+      throw new HttpException('Ticket or event not found', HttpStatus.NOT_FOUND);
+    }
+  
+    // Additional logic...
+  
+    // Update the ticket
+    const result = await this.eventTicketModel.findByIdAndUpdate(
+      ticketId,
+      updateEventTicketDto,
+      { new: true },
+    );
+  
+    // Return the updated ticket
     return result;
   }
 
