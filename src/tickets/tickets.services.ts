@@ -48,7 +48,7 @@ export class TicketsServices {
     }
     return await this.createCheckoutSession(
       result._id.toString(),
-      'skipee-web-3xdw.vercel.app',
+      '104.248.165.72:3000',
     );
   }
 
