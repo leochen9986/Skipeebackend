@@ -73,6 +73,9 @@ export class Event {
   @Prop({ default: false })
   limitQuantity: boolean;
 
+  @Prop({ default: false })
+  singleEvent: boolean;
+
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

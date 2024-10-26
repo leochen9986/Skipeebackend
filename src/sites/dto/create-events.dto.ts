@@ -72,4 +72,8 @@ export class CreateEventDto {
   @IsBoolean()
   limitQuantity?: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  singleEvent?: boolean;
+
 }
