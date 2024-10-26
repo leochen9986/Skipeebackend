@@ -357,59 +357,49 @@ export class SitesService {
   }
 
   async getEvents(siteId: string, siteIds: string[], status: string[] | string, search: string, user: any) {
-
     const filter: any = {};
-    
-
+  
     if (siteId) {
       filter['site'] = new mongoose.Types.ObjectId(siteId);
     } else if (siteIds && siteIds.length > 0) {
       filter['site'] = { $in: siteIds.map((id) => new mongoose.Types.ObjectId(id)) };
     }
   
-
     if (status) {
-      if (Array.isArray(status)) {
-        filter.status = { $in: status };
-      } else {
-        filter.status = status;
-      }
+      filter.status = Array.isArray(status) ? { $in: status } : status;
     }
   
     if (search) {
       filter['name'] = new RegExp(search, 'i');
     }
-
-    // console.log(filter);
+  
     const now = new Date().setHours(0, 0, 0, 0);
-
+  
+    // Only update events to COMPLETED if their date has passed and they’re not already completed
     await this.eventModel.updateMany(
       {
         date: { $lt: now },
         endDate: null,
         status: { $ne: eventStatus.COMPLETED },
       },
-      { $set: { status: eventStatus.COMPLETED } },
+      { $set: { status: eventStatus.COMPLETED } }
     );
-    await this.eventModel.updateMany(
-      {
-        date: { $gte: now },
-        status: { $ne: eventStatus.DRAFT },
-      },
-      { $set: { status: eventStatus.UPCOMING } },
-    );
-
+  
+    // Fetch events based on the filter
     const events = await this.eventModel
       .find(filter)
       .populate('site')
       .populate('owner')
       .populate('tickets')
       .sort({ endDate: -1, date: -1 });
+  
     if (!events) {
       throw new HttpException('Failed to get events', HttpStatus.NOT_FOUND);
     }
+  
     return events;
   }
+  
 
   async getEventById(id: string) {
     const event = await this.eventModel
