@@ -357,25 +357,9 @@ export class SitesService {
   }
 
   async getEvents(siteId: string, siteIds: string[], status: string[] | string, search: string, user: any) {
-    const filter: any = {};
-  
-    if (siteId) {
-      filter['site'] = new mongoose.Types.ObjectId(siteId);
-    } else if (siteIds && siteIds.length > 0) {
-      filter['site'] = { $in: siteIds.map((id) => new mongoose.Types.ObjectId(id)) };
-    }
-  
-    if (status) {
-      filter.status = Array.isArray(status) ? { $in: status } : status;
-    }
-  
-    if (search) {
-      filter['name'] = new RegExp(search, 'i');
-    }
-  
     const now = new Date().setHours(0, 0, 0, 0);
   
-    // Only update events to COMPLETED if their date has passed and they’re not already completed
+    // Update past events to COMPLETED if their date has passed and they’re not already completed
     await this.eventModel.updateMany(
       {
         date: { $lt: now },
@@ -385,16 +369,83 @@ export class SitesService {
       { $set: { status: eventStatus.COMPLETED } }
     );
   
-    // Fetch events based on the filter
-    const events = await this.eventModel
-      .find(filter)
-      .populate('site')
-      .populate('owner')
-      .populate('tickets')
-      .sort({ endDate: -1, date: -1 });
+    const matchConditions: any = {};
   
-    if (!events) {
-      throw new HttpException('Failed to get events', HttpStatus.NOT_FOUND);
+    // Build initial match conditions
+    if (siteId) {
+      matchConditions['site'] = new mongoose.Types.ObjectId(siteId);
+    } else if (siteIds && siteIds.length > 0) {
+      matchConditions['site'] = { $in: siteIds.map((id) => new mongoose.Types.ObjectId(id)) };
+    }
+  
+    if (status) {
+      matchConditions['status'] = Array.isArray(status) ? { $in: status } : status;
+    }
+  
+    const pipeline: any[] = [];
+  
+    // Add initial match stage if there are conditions
+    if (Object.keys(matchConditions).length > 0) {
+      pipeline.push({ $match: matchConditions });
+    }
+  
+    // Perform $lookup to join with sites collection
+    pipeline.push({
+      $lookup: {
+        from: 'sites',          // Name of the sites collection
+        localField: 'site',
+        foreignField: '_id',
+        as: 'site'
+      }
+    });
+  
+    // Unwind the site array
+    pipeline.push({ $unwind: '$site' });
+  
+    // If there's a search term, match against event name or site name
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      pipeline.push({
+        $match: {
+          $or: [
+            { 'name': searchRegex },       // Event name
+            { 'site.name': searchRegex }   // Site name
+          ]
+        }
+      });
+    }
+  
+    // Perform lookup for owner
+    pipeline.push({
+      $lookup: {
+        from: 'users',        // Name of the users collection
+        localField: 'owner',
+        foreignField: '_id',
+        as: 'owner'
+      }
+    });
+  
+    // Unwind the owner array
+    pipeline.push({ $unwind: '$owner' });
+  
+    // Perform lookup for tickets
+    pipeline.push({
+      $lookup: {
+        from: 'eventtickets',  // Name of the event tickets collection
+        localField: 'tickets',
+        foreignField: '_id',
+        as: 'tickets'
+      }
+    });
+  
+    // Sort the events
+    pipeline.push({ $sort: { endDate: -1, date: -1 } });
+  
+    // Execute the aggregation pipeline
+    const events = await this.eventModel.aggregate(pipeline);
+  
+    if (!events || events.length === 0) {
+      return events;
     }
   
     return events;
