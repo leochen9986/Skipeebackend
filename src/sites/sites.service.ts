@@ -90,19 +90,27 @@ export class SitesService {
     }
     return result;
   }
-  async getAllSites(search: string, archived?: boolean, skipping?: boolean) {
+  async getAllSites(search: string, archived?: boolean, skipping?: boolean, ticketing?:boolean) {
     const filter: any = {};
+    console.log("heyyy");
   
     if (archived !== undefined) {
       filter.archived = archived;
     } else {
       filter.archived = false; // Default to non-archived sites
     }
+    console.log(skipping);
   
     if (skipping !== undefined) {
       filter.skipping = skipping;  // Add skipping filter
     }
-  
+    else{
+      if (ticketing !== undefined) {
+        filter.ticketing = ticketing;  // Add ticketing filter
+      }
+    }
+
+
     if (search) {
       filter.name = new RegExp(search, 'i');
     }

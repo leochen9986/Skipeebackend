@@ -50,14 +50,17 @@ export class SitesController {
   @ApiQuery({ name: 'search', description: 'Search term', required: false })
   @ApiQuery({ name: 'archived', description: 'Filter by archived status', required: false })
   @ApiQuery({ name: 'skipping', description: 'Filter by skipping status', required: false }) // Add skipping filter
+  @ApiQuery({ name: 'ticketing', description: 'Filter by ticketing status', required: false }) 
   @ApiOkResponse({ type: [Site] })
   getAllSites(
     @Query('search') search: string,
     @Query('archived') archived: string,
     @Query('skipping') skipping: string,  // Add skipping parameter
+    @Query('ticketing') ticketing: string,  // Add skipping parameter
   ) {
     let isArchived: boolean;
     let isSkipping: boolean; // Handle skipping flag
+    let isTicketing: boolean;
   
     // Parse archived query parameter
     if (archived === 'true') {
@@ -76,9 +79,18 @@ export class SitesController {
     } else {
       isSkipping = undefined; // Default to undefined if not provided
     }
+
+        // Parse skipping query parameter
+    if (ticketing === 'true') {
+      isTicketing = true;
+    } else if (ticketing === 'false') {
+      isTicketing = false;
+    } else {
+      isTicketing = undefined; // Default to undefined if not provided
+    }
   
     // Call service method with the skipping filter
-    return this.sitesService.getAllSites(search, isArchived, isSkipping);
+    return this.sitesService.getAllSites(search, isArchived, isSkipping , isTicketing);
   }
 
   @Put('/:id/request')
