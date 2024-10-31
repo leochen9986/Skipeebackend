@@ -53,31 +53,26 @@ export class TicketsServices {
   }
 
   async approveTicket(id: string, quantity: number) {
-
     const ticket = await this.ticketModel.findById(id);
     const remaining_ticket = ticket.noOfUser - ticket.entered;
     const toenter =
       parseInt(quantity.toString()) + parseInt(ticket.entered.toString());
 
-    console.log(ticket)
+    if (!ticket.isConfirmed) {
+      throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
+    }
 
-
-    // if (!ticket.isConfirmed) {
-    //   throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
-    // }
-
-    // if (quantity > remaining_ticket) {
-    //   throw new HttpException(
-    //     'Ticket is only remaining for ' + remaining_ticket + ' users',
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
-    
+    if (quantity > remaining_ticket) {
+      throw new HttpException(
+        'Ticket is only remaining for ' + remaining_ticket + ' users',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     const result = await this.ticketModel
       .findByIdAndUpdate(
         id,
-        { isScaned: false, entered: 1 },
+        { isScaned: true, entered: toenter },
         {
           new: true,
         },
