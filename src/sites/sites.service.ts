@@ -150,8 +150,7 @@ export class SitesService {
     if (!owner) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    console.log(siteId);
-    // Use the provided siteId from the frontend instead of fetching it based on the owner
+  
     const site = await this.siteModel.findById(siteId);
   
     if (!site) {
@@ -162,10 +161,16 @@ export class SitesService {
       throw new HttpException('Your venue is still in review', HttpStatus.NOT_ACCEPTABLE);
     }
   
+    // Check if the image field is empty and set a default value if necessary
+    const image = createEventDto.image && createEventDto.image.trim() !== ''
+      ? createEventDto.image
+      : 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1'; // Use your default image URL here
+  
     const createdEvent = new this.eventModel({
       ...createEventDto,
+      image, // Assign the image with a default if necessary
       owner: owner._id,
-      site: site._id, // Use the provided siteId
+      site: site._id,
     });
   
     const result = await createdEvent.save();
@@ -191,20 +196,30 @@ export class SitesService {
     if (!event) {
       throw new HttpException('Event not found', HttpStatus.NOT_FOUND);
     }
-
+  
     const user = await this.usersService.getUser(userId);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-
+  
     if (user.role === 'manager' && user.worksIn !== event.site) {
       throw new HttpException(
         'You do not have permission to update events',
         HttpStatus.NOT_ACCEPTABLE,
       );
     }
-
-    const result = await this.eventModel.findByIdAndUpdate(id, createEventDto, {
+  
+    // Check if the image field is empty and set a default value if necessary
+    const image = createEventDto.image && createEventDto.image.trim() !== ''
+      ? createEventDto.image
+      : event.image || 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1'; // Default URL if no previous image
+  
+    const updatedData = {
+      ...createEventDto,
+      image, // Assign the image with a default if necessary
+    };
+  
+    const result = await this.eventModel.findByIdAndUpdate(id, updatedData, {
       new: true,
     });
     if (!result) {

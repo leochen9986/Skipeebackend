@@ -115,43 +115,43 @@ export class UsersService {
     if (!updatedUser) {
       throw new Error('Failed to approve user request');
     }
-    await this.emailService.sendEmail(
-      updatedUser.email,
-      'Approved User Request',
-      'Hey, thank you for your interest in Skipee. Your request has been approves.',
-      `<p>Hey,</p>
-      <p>Thank you for your interest in Skipee. Your request has been approved with the following info: </p>
-      <strong>
-        <p>Email: ${updatedUser.email}</p>
-        <p>Organizer Name: ${updatedUser.organizerName}</p>
-        <p>Approval Date: ${new Date().toLocaleString()}</p>
-      </strong>
-      <p>Please create an account now.</p> 
-       <strong><p>Regards,</p><p>Skipee Team</p> </strong>`,
-    );
-    await this.emailService.sendEmail(
-      'info@skipee.co.uk',
-      'Approved User Request - Skipee - ' + updatedUser.organizerName,
-      'Hey, a user join request has been approved by ' +
-        updatedUser.organizerName +
-        ' | Email: ' +
-        updatedUser.email +
-        ' | Date: ' +
-        new Date() +
-        '.',
-      `
-      <p>Hey,</p>
-      <p>A user join request has been approved with the following details:</p>
-      <strong>
-        <p>Email: ${updatedUser.email}</p>
-        <p>Organizer Name: ${updatedUser.organizerName}</p>
-        <p>Approval Date: ${new Date().toLocaleString()}</p>
-      </strong>
-      <p>Please create an account now.</p>
+    // await this.emailService.sendEmail(
+    //   updatedUser.email,
+    //   'Approved User Request',
+    //   'Hey, thank you for your interest in Skipee. Your request has been approves.',
+    //   `<p>Hey,</p>
+    //   <p>Thank you for your interest in Skipee. Your request has been approved with the following info: </p>
+    //   <strong>
+    //     <p>Email: ${updatedUser.email}</p>
+    //     <p>Organizer Name: ${updatedUser.organizerName}</p>
+    //     <p>Approval Date: ${new Date().toLocaleString()}</p>
+    //   </strong>
+    //   <p>Please create an account now.</p> 
+    //    <strong><p>Regards,</p><p>Skipee Team</p> </strong>`,
+    // );
+    // await this.emailService.sendEmail(
+    //   'info@skipee.co.uk',
+    //   'Approved User Request - Skipee - ' + updatedUser.organizerName,
+    //   'Hey, a user join request has been approved by ' +
+    //     updatedUser.organizerName +
+    //     ' | Email: ' +
+    //     updatedUser.email +
+    //     ' | Date: ' +
+    //     new Date() +
+    //     '.',
+    //   `
+    //   <p>Hey,</p>
+    //   <p>A user join request has been approved with the following details:</p>
+    //   <strong>
+    //     <p>Email: ${updatedUser.email}</p>
+    //     <p>Organizer Name: ${updatedUser.organizerName}</p>
+    //     <p>Approval Date: ${new Date().toLocaleString()}</p>
+    //   </strong>
+    //   <p>Please create an account now.</p>
 
-      <strong><p>Regards,</p><p>Skipee Team</p> </strong>
-      `,
-    );
+    //   <strong><p>Regards,</p><p>Skipee Team</p> </strong>
+    //   `,
+    // );
     return updatedUser;
   }
 

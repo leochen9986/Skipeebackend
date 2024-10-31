@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString,IsBoolean, IsOptional, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 
 export class CreateEventDto {
   @ApiProperty({
@@ -24,6 +25,9 @@ export class CreateEventDto {
   })
   @IsString()
   @IsOptional()
+  @Transform(({ value }) =>
+    value && value.trim() !== '' ? value : 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1',
+  )
   image: string;
 
   @ApiProperty({
