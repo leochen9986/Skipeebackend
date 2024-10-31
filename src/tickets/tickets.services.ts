@@ -53,6 +53,8 @@ export class TicketsServices {
   }
 
   async approveTicket(id: string, quantity: number) {
+    console.log(id)
+    console.log(quantity)
     const ticket = await this.ticketModel.findById(id);
     const remaining_ticket = ticket.noOfUser - ticket.entered;
     const toenter =
