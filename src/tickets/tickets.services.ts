@@ -53,12 +53,14 @@ export class TicketsServices {
   }
 
   async approveTicket(id: string, quantity: number) {
-    console.log(id)
-    console.log(quantity)
+
     const ticket = await this.ticketModel.findById(id);
     const remaining_ticket = ticket.noOfUser - ticket.entered;
     const toenter =
       parseInt(quantity.toString()) + parseInt(ticket.entered.toString());
+
+    console.log(ticket)
+
 
     if (!ticket.isConfirmed) {
       throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
@@ -70,6 +72,7 @@ export class TicketsServices {
         HttpStatus.BAD_REQUEST,
       );
     }
+    console.log("HAHA")
 
     const result = await this.ticketModel
       .findByIdAndUpdate(
