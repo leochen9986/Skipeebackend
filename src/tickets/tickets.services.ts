@@ -72,7 +72,7 @@ export class TicketsServices {
         HttpStatus.BAD_REQUEST,
       );
     }
-    console.log("HAHA")
+    
 
     const result = await this.ticketModel
       .findByIdAndUpdate(
@@ -89,6 +89,7 @@ export class TicketsServices {
     if (!result) {
       throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
     }
+    console.log(result)
     return result;
   }
 
