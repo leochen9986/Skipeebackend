@@ -62,22 +62,22 @@ export class TicketsServices {
     console.log(ticket)
 
 
-    // if (!ticket.isConfirmed) {
-    //   throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
-    // }
+    if (!ticket.isConfirmed) {
+      throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
+    }
 
-    // if (quantity > remaining_ticket) {
-    //   throw new HttpException(
-    //     'Ticket is only remaining for ' + remaining_ticket + ' users',
-    //     HttpStatus.BAD_REQUEST,
-    //   );
-    // }
+    if (quantity > remaining_ticket) {
+      throw new HttpException(
+        'Ticket is only remaining for ' + remaining_ticket + ' users',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     
 
     const result = await this.ticketModel
       .findByIdAndUpdate(
         id,
-        { isScaned: false, entered: toenter },
+        { isScaned: false, entered: 1 },
         {
           new: true,
         },
@@ -89,8 +89,6 @@ export class TicketsServices {
     if (!result) {
       throw new HttpException('Failed to approve ticket', HttpStatus.NOT_FOUND);
     }
-    
-    console.log(result)
     return result;
   }
 
@@ -169,7 +167,6 @@ export class TicketsServices {
     if (!tickets) {
       throw new HttpException('Failed to get tickets', HttpStatus.NOT_FOUND);
     }
-    console.log(tickets)
 
     return tickets;
   }
