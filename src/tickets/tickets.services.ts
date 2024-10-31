@@ -169,6 +169,7 @@ export class TicketsServices {
     if (!tickets) {
       throw new HttpException('Failed to get tickets', HttpStatus.NOT_FOUND);
     }
+    console.log(tickets)
 
     return tickets;
   }
