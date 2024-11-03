@@ -68,12 +68,12 @@ export class SitesService {
       } as UpdateUserDto);
     }
 
-    if (ownedSite) {
-      throw new HttpException(
-        'You already have a site',
-        HttpStatus.NOT_ACCEPTABLE,
-      );
-    }
+    // if (ownedSite) {
+    //   throw new HttpException(
+    //     'You already have a site',
+    //     HttpStatus.NOT_ACCEPTABLE,
+    //   );
+    // }
 
     const createdSite = new this.siteModel({
       ...createSiteDto,
