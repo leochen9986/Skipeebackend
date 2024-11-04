@@ -51,12 +51,14 @@ export class SitesController {
   @ApiQuery({ name: 'archived', description: 'Filter by archived status', required: false })
   @ApiQuery({ name: 'skipping', description: 'Filter by skipping status', required: false }) // Add skipping filter
   @ApiQuery({ name: 'ticketing', description: 'Filter by ticketing status', required: false }) 
+  @ApiQuery({ name: 'ownerId', description: 'Filter by owner ID', required: false }) // Add ownerId query parameter
   @ApiOkResponse({ type: [Site] })
   getAllSites(
     @Query('search') search: string,
     @Query('archived') archived: string,
     @Query('skipping') skipping: string,  // Add skipping parameter
     @Query('ticketing') ticketing: string,  // Add skipping parameter
+    @Query('ownerId') ownerId: string,
   ) {
     let isArchived: boolean;
     let isSkipping: boolean; // Handle skipping flag
@@ -90,7 +92,7 @@ export class SitesController {
     }
   
     // Call service method with the skipping filter
-    return this.sitesService.getAllSites(search, isArchived, isSkipping , isTicketing);
+    return this.sitesService.getAllSites(search, isArchived, isSkipping, isTicketing, ownerId);
   }
 
   @Put('/:id/request')

@@ -84,12 +84,12 @@ export class UsersController {
     type: UserRequests,
   })
   @ApiBody({
-    type: String,
+    type: UserRequests, // Adjust this as needed
     required: true,
-    description: 'User email to request',
+    description: 'User data to request',
   })
-  requestUser(@Body('email') email: string, @Body('organizerName') organizerName: string) {
-    return this.usersService.requestUser(email, organizerName);
+  async requestUser(@Body() createUserRequestData) {
+    return this.usersService.requestUser(createUserRequestData);
   }
 
   @Get('/request')

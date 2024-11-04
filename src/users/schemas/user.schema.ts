@@ -29,6 +29,12 @@ export class User {
   @Prop({ required: true })
   role: UserRoles;
 
+  @Prop({ required: true })
+  organizerName: string;
+
+  @Prop({ required: false })
+  phone: string;
+
   @Prop({ required: false, default: true })
   isActive: boolean;
 

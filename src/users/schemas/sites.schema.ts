@@ -37,7 +37,7 @@ export class Site {
   logo: string;
 
   @ApiProperty({ description: 'Owner of the venue' })
-  @Prop({ required: false, type: Types.ObjectId, ref: 'User' })
+  @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
   owner: Types.ObjectId;
 
   @ApiProperty({ description: 'Location of the site' })

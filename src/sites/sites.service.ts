@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model,Types  } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Site } from './schemas/sites.schema';
 import { CreateSiteDto } from './dto/create-site.dto';
@@ -90,7 +90,7 @@ export class SitesService {
     }
     return result;
   }
-  async getAllSites(search: string, archived?: boolean, skipping?: boolean, ticketing?:boolean) {
+  async getAllSites(search: string, archived?: boolean, skipping?: boolean, ticketing?:boolean, ownerId?: string, ) {
     const filter: any = {};
     console.log("heyyy");
   
@@ -115,6 +115,13 @@ export class SitesService {
       filter.name = new RegExp(search, 'i');
     }
   
+    if (ownerId) {
+      if (!mongoose.Types.ObjectId.isValid(ownerId)) {
+        throw new HttpException('Invalid ownerId', HttpStatus.BAD_REQUEST);
+      }
+      filter.owner = new Types.ObjectId(ownerId); // Use Types.ObjectId for consistency
+    }
+
     const sites = await this.siteModel.find(filter).populate('owner');
   
     if (!sites) {
@@ -202,12 +209,12 @@ export class SitesService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
   
-    if (user.role === 'manager' && user.worksIn !== event.site) {
-      throw new HttpException(
-        'You do not have permission to update events',
-        HttpStatus.NOT_ACCEPTABLE,
-      );
-    }
+    // if (user.role === 'manager' && user.worksIn !== event.site) {
+    //   throw new HttpException(
+    //     'You do not have permission to update events',
+    //     HttpStatus.NOT_ACCEPTABLE,
+    //   );
+    // }
   
     // Check if the image field is empty and set a default value if necessary
     const image = createEventDto.image && createEventDto.image.trim() !== ''
@@ -400,10 +407,17 @@ export class SitesService {
     } else if (siteIds && siteIds.length > 0) {
       matchConditions['site'] = { $in: siteIds.map((id) => new mongoose.Types.ObjectId(id)) };
     }
-  
-    if (status) {
+    console.log(status);
+   console.log(Array.isArray(status));
+   if (status) {
+    // Check if status is a string, split it into an array
+    if (typeof status === 'string') {
+      const statusArray = status.split(',').map(item => item.trim());
+      matchConditions['status'] = { $in: statusArray };
+    } else {
       matchConditions['status'] = Array.isArray(status) ? { $in: status } : status;
     }
+  }
   
     const pipeline: any[] = [];
   
