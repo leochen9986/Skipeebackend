@@ -46,6 +46,8 @@ export declare class Event {
     tickets: Types.ObjectId[];
     owner: Types.ObjectId;
     status: eventStatus;
+    limitQuantity: boolean;
+    singleEvent: boolean;
 }
 export declare const EventSchema: import("mongoose").Schema<Event, import("mongoose").Model<Event, any, any, any, Document<unknown, any, Event> & Event & {
     _id: Types.ObjectId;

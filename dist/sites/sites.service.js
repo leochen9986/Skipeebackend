@@ -29,12 +29,14 @@ let SitesService = class SitesService {
         this.userModel = userModel;
         this.usersService = usersService;
     }
-    async updateLogo(siteId, logoPath) {
-        const site = await this.siteModel.findByIdAndUpdate(siteId, { logo: logoPath }, { new: true });
+    async updateLogo(siteId, logo, userId) {
+        const site = await this.siteModel.findById(siteId);
         if (!site) {
             throw new common_1.HttpException('Site not found', common_1.HttpStatus.NOT_FOUND);
         }
-        return site;
+        site.logo = logo;
+        const updatedSite = await site.save();
+        return updatedSite;
     }
     async createSite(createSiteDto, userId) {
         const owner = await this.usersService.getUser(userId);
@@ -55,9 +57,6 @@ let SitesService = class SitesService {
                 worksIn: ownedSite._id.toString(),
             });
         }
-        if (ownedSite) {
-            throw new common_1.HttpException('You already have a site', common_1.HttpStatus.NOT_ACCEPTABLE);
-        }
         const createdSite = new this.siteModel({
             ...createSiteDto,
             owner: owner._id,
@@ -72,17 +71,85 @@ let SitesService = class SitesService {
         }
         return result;
     }
-    async getAllSites(search) {
-        if (search) {
-            const sites = await this.siteModel
-                .find({ name: new RegExp(search, 'i') })
-                .populate('owner');
-            if (!sites) {
-                throw new common_1.HttpException('Failed to get sites', common_1.HttpStatus.NOT_FOUND);
-            }
-            return sites;
+    async getPaginatedSites(search, archived, skipping, ticketing, ownerId, pageNumber = 1, limitNumber = 10) {
+        const filter = {};
+        if (archived !== undefined) {
+            filter.archived = archived;
         }
-        const sites = await this.siteModel.find().populate('owner');
+        else {
+            filter.archived = false;
+        }
+        if (skipping !== undefined) {
+            filter.skipping = skipping;
+        }
+        if (ticketing !== undefined) {
+            filter.ticketing = ticketing;
+        }
+        if (search) {
+            filter.name = new RegExp(search, 'i');
+        }
+        if (ownerId) {
+            if (!mongoose_1.default.Types.ObjectId.isValid(ownerId)) {
+                throw new common_1.HttpException('Invalid ownerId', common_1.HttpStatus.BAD_REQUEST);
+            }
+            filter.owner = new mongoose_1.Types.ObjectId(ownerId);
+        }
+        const skip = (pageNumber - 1) * limitNumber;
+        const sites = await this.siteModel
+            .find(filter)
+            .populate('owner')
+            .skip(skip)
+            .limit(limitNumber)
+            .exec();
+        const totalCount = await this.siteModel.countDocuments(filter);
+        const totalPages = Math.ceil(totalCount / limitNumber);
+        return {
+            sites,
+            totalCount,
+            currentPage: pageNumber,
+            totalPages,
+        };
+    }
+    async archiveSite(siteId, userId) {
+        if (!mongoose_1.default.Types.ObjectId.isValid(siteId)) {
+            throw new common_1.HttpException('Invalid site ID', common_1.HttpStatus.BAD_REQUEST);
+        }
+        const site = await this.siteModel.findById(siteId);
+        if (!site) {
+            throw new common_1.HttpException('Site not found', common_1.HttpStatus.NOT_FOUND);
+        }
+        site.archived = true;
+        await site.save();
+        return site;
+    }
+    async getAllSites(search, archived, skipping, ticketing, ownerId) {
+        const filter = {};
+        console.log("heyyy");
+        if (archived !== undefined) {
+            filter.archived = archived;
+        }
+        else {
+            filter.archived = false;
+        }
+        console.log(skipping);
+        if (skipping !== undefined) {
+            filter.skipping = skipping;
+        }
+        else {
+            if (ticketing !== undefined) {
+                filter.ticketing = ticketing;
+            }
+        }
+        if (search) {
+            filter.name = new RegExp(search, 'i');
+        }
+        if (ownerId) {
+            if (!mongoose_1.default.Types.ObjectId.isValid(ownerId)) {
+                throw new common_1.HttpException('Invalid ownerId', common_1.HttpStatus.BAD_REQUEST);
+            }
+            filter.owner = new mongoose_1.Types.ObjectId(ownerId);
+        }
+        const sites = await this.siteModel.find(filter).populate('owner');
         if (!sites) {
             throw new common_1.HttpException('Failed to get sites', common_1.HttpStatus.NOT_FOUND);
         }
@@ -96,31 +163,35 @@ let SitesService = class SitesService {
         return site;
     }
     async deleteSite(id) {
-        const result = await this.siteModel.findByIdAndDelete(id);
-        const user = await this.userModel.findByIdAndDelete(result.owner);
-        const userRequest = await this.userModel.findByIdAndDelete(result.owner);
-        if (!result) {
-            throw new common_1.HttpException('Failed to delete site', common_1.HttpStatus.NOT_FOUND);
+        const site = await this.siteModel.findById(id);
+        if (!site) {
+            throw new common_1.HttpException('Site not found', common_1.HttpStatus.NOT_FOUND);
         }
-        return result;
+        site.archived = true;
+        const updatedSite = await site.save();
+        return updatedSite;
     }
-    async createEvent(createEventDto, userId) {
+    async createEvent(createEventDto, siteId, userId) {
         const owner = await this.usersService.getUser(userId);
         if (!owner) {
             throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
         }
-        const event = await this.siteModel.findOne({
-            owner: owner._id,
-        });
-        if (!event || !event.approved) {
-            throw new common_1.HttpException(!event ? 'You do not have a venue' : 'Your venue is still in review', common_1.HttpStatus.NOT_ACCEPTABLE);
+        const site = await this.siteModel.findById(siteId);
+        if (!site) {
+            throw new common_1.HttpException('Site not found', common_1.HttpStatus.NOT_FOUND);
         }
+        if (!site.approved) {
+            throw new common_1.HttpException('Your venue is still in review', common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        const image = createEventDto.image && createEventDto.image.trim() !== ''
+            ? createEventDto.image
+            : 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1';
         const createdEvent = new this.eventModel({
             ...createEventDto,
+            image,
             owner: owner._id,
-            site: event._id,
+            site: site._id,
         });
-        console.log(createdEvent);
         const result = await createdEvent.save();
         if (!result) {
             throw new common_1.HttpException('Failed to create event', common_1.HttpStatus.NOT_FOUND);
@@ -141,10 +212,14 @@ let SitesService = class SitesService {
         if (!user) {
             throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
         }
-        if (user.role === 'manager' && user.worksIn !== event.site) {
-            throw new common_1.HttpException('You do not have permission to update events', common_1.HttpStatus.NOT_ACCEPTABLE);
-        }
-        const result = await this.eventModel.findByIdAndUpdate(id, createEventDto, {
+        const image = createEventDto.image && createEventDto.image.trim() !== ''
+            ? createEventDto.image
+            : event.image || 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1';
+        const updatedData = {
+            ...createEventDto,
+            image,
+        };
+        const result = await this.eventModel.findByIdAndUpdate(id, updatedData, {
             new: true,
         });
         if (!result) {
@@ -205,62 +280,117 @@ let SitesService = class SitesService {
         }
         return result;
     }
-    async updateTicket(id, updateEventTicketDto, userId) {
+    async addTicket(eventId, createEventTicketDto, userId) {
         const user = await this.usersService.getUser(userId);
         if (!user) {
             throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
         }
-        const eventTicket = await this.eventTicketModel
-            .findById(id)
-            .populate('event');
-        if (!eventTicket.event ||
-            !eventTicket.event.owner ||
-            eventTicket.event.owner._id.toString() !== user._id.toString()) {
+        const event = await this.eventModel.findById(eventId).populate('owner').populate('site');
+        if (!event) {
             throw new common_1.HttpException('Event not found', common_1.HttpStatus.NOT_FOUND);
         }
-        const result = await this.eventTicketModel.findByIdAndUpdate(id, {
-            ...updateEventTicketDto,
-            availableQuantity: updateEventTicketDto.totalQuantity -
-                parseInt(eventTicket.totalQuantity) +
-                parseInt(eventTicket.availableQuantity),
-        });
-        if (!result) {
-            throw new common_1.HttpException('Failed to update tickets', common_1.HttpStatus.NOT_FOUND);
+        if (event.owner._id.toString() !== user._id.toString()) {
+            throw new common_1.HttpException('Unauthorized', common_1.HttpStatus.UNAUTHORIZED);
         }
+        const ticketData = {
+            ...createEventTicketDto,
+            site: event.site._id,
+            event: event._id,
+            availableQuantity: createEventTicketDto.totalQuantity,
+        };
+        const ticket = new this.eventTicketModel(ticketData);
+        const savedTicket = await ticket.save();
+        if (!savedTicket) {
+            throw new common_1.HttpException('Failed to add ticket', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        event.tickets.push(savedTicket._id);
+        event.status = event_schema_1.eventStatus.UPCOMING;
+        await event.save();
+        return savedTicket;
+    }
+    async updateTicket(ticketId, updateEventTicketDto, userId) {
+        const eventTicket = await this.eventTicketModel
+            .findById(ticketId)
+            .populate('event');
+        if (!eventTicket || !eventTicket.event) {
+            throw new common_1.HttpException('Ticket or event not found', common_1.HttpStatus.NOT_FOUND);
+        }
+        const result = await this.eventTicketModel.findByIdAndUpdate(ticketId, updateEventTicketDto, { new: true });
         return result;
     }
-    async getEvents(siteId, status, search, user) {
-        const filter = {};
-        if (siteId) {
-            filter['site'] = new mongoose_1.default.Types.ObjectId(siteId);
-        }
-        if (status) {
-            filter['status'] = status;
-        }
-        else {
-            filter['status'] = { $nin: [event_schema_1.eventStatus.COMPLETED, event_schema_1.eventStatus.DRAFT] };
-        }
-        if (search) {
-            filter['name'] = new RegExp(search, 'i');
-        }
+    async getSitesOwnedByUser(userId) {
+        return this.siteModel.find({ owner: userId });
+    }
+    async getEvents(siteId, siteIds, status, search, user) {
         const now = new Date().setHours(0, 0, 0, 0);
         await this.eventModel.updateMany({
             date: { $lt: now },
             endDate: null,
             status: { $ne: event_schema_1.eventStatus.COMPLETED },
         }, { $set: { status: event_schema_1.eventStatus.COMPLETED } });
-        await this.eventModel.updateMany({
-            date: { $gte: now },
-            status: { $ne: event_schema_1.eventStatus.DRAFT },
-        }, { $set: { status: event_schema_1.eventStatus.UPCOMING } });
-        const events = await this.eventModel
-            .find(filter)
-            .populate('site')
-            .populate('owner')
-            .populate('tickets')
-            .sort({ endDate: -1, date: -1 });
-        if (!events) {
-            throw new common_1.HttpException('Failed to get events', common_1.HttpStatus.NOT_FOUND);
+        const matchConditions = {};
+        if (siteId) {
+            matchConditions['site'] = new mongoose_1.default.Types.ObjectId(siteId);
+        }
+        else if (siteIds && siteIds.length > 0) {
+            matchConditions['site'] = { $in: siteIds.map((id) => new mongoose_1.default.Types.ObjectId(id)) };
+        }
+        console.log(status);
+        console.log(Array.isArray(status));
+        if (status) {
+            if (typeof status === 'string') {
+                const statusArray = status.split(',').map(item => item.trim());
+                matchConditions['status'] = { $in: statusArray };
+            }
+            else {
+                matchConditions['status'] = Array.isArray(status) ? { $in: status } : status;
+            }
+        }
+        const pipeline = [];
+        if (Object.keys(matchConditions).length > 0) {
+            pipeline.push({ $match: matchConditions });
+        }
+        pipeline.push({
+            $lookup: {
+                from: 'sites',
+                localField: 'site',
+                foreignField: '_id',
+                as: 'site'
+            }
+        });
+        pipeline.push({ $unwind: '$site' });
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            pipeline.push({
+                $match: {
+                    $or: [
+                        { 'name': searchRegex },
+                        { 'site.name': searchRegex }
+                    ]
+                }
+            });
+        }
+        pipeline.push({
+            $lookup: {
+                from: 'users',
+                localField: 'owner',
+                foreignField: '_id',
+                as: 'owner'
+            }
+        });
+        pipeline.push({ $unwind: '$owner' });
+        pipeline.push({
+            $lookup: {
+                from: 'eventtickets',
+                localField: 'tickets',
+                foreignField: '_id',
+                as: 'tickets'
+            }
+        });
+        pipeline.push({ $sort: { endDate: -1, date: -1 } });
+        const events = await this.eventModel.aggregate(pipeline);
+        if (!events || events.length === 0) {
+            return events;
         }
         return events;
     }
@@ -276,17 +406,18 @@ let SitesService = class SitesService {
         return event;
     }
     async getEmployees(userId) {
-        const user = await this.usersService.getUser(userId);
-        if (!user) {
-            throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
+        const userOwnedSites = await this.siteModel.find({ owner: userId });
+        if (!userOwnedSites || userOwnedSites.length === 0) {
+            throw new common_1.HttpException('No sites found for the given owner', common_1.HttpStatus.NOT_FOUND);
         }
-        if (!user.worksIn || user.worksIn === null) {
-            throw new common_1.HttpException('Unauthorized', common_1.HttpStatus.UNAUTHORIZED);
-        }
-        const allUsersForSite = await this.userModel.find({
-            worksIn: user.worksIn._id.toString(),
-        });
-        return allUsersForSite;
+        const siteIds = userOwnedSites.map((site) => site._id.toString());
+        console.log(siteIds);
+        const employees = await this.userModel
+            .find({
+            worksIn: { $in: siteIds },
+        })
+            .populate('worksIn');
+        return employees;
     }
     async deleteEvent(id, userId) {
         const user = await this.usersService.getUser(userId);

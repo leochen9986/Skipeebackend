@@ -23,10 +23,15 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { HydratedDocument } from 'mongoose';
+import { UserRoles } from './user.schema';
 export type UsersRequestsDocument = HydratedDocument<UserRequests>;
 export declare class UserRequests {
+    name: string;
     email: string;
+    password: string;
+    phone: string;
     organizerName: string;
+    role: UserRoles;
     approved: boolean;
 }
 export declare const UserRequestsSchema: import("mongoose").Schema<UserRequests, import("mongoose").Model<UserRequests, any, any, any, import("mongoose").Document<unknown, any, UserRequests> & UserRequests & {

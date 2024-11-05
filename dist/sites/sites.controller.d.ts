@@ -29,24 +29,42 @@ import { Site } from './schemas/sites.schema';
 import { CreateEventDto } from './dto/create-events.dto';
 import { Event } from './schemas/event.schema';
 import { CreateEventTicketDto } from './dto/create-event-tickets.dto';
+import { EventTicket } from './schemas/event-ticket.schema';
 export declare class SitesController {
     private readonly sitesService;
     constructor(sitesService: SitesService);
     createSite(createSiteDto: CreateSiteDto, user: any): Promise<import("mongoose").Document<unknown, {}, Site> & Site & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getAllSites(search: any): Promise<Omit<import("mongoose").Document<unknown, {}, Site> & Site & {
+    getAllSites(search: string, archived: string, skipping: string, ticketing: string, ownerId: string): Promise<Omit<import("mongoose").Document<unknown, {}, Site> & Site & {
         _id: import("mongoose").Types.ObjectId;
     }, never>[]>;
+    getPaginatedSites(search: string, archived: string, skipping: string, ticketing: string, ownerId: string, page: string, limit: string): Promise<{
+        sites: Omit<import("mongoose").Document<unknown, {}, Site> & Site & {
+            _id: import("mongoose").Types.ObjectId;
+        }, never>[];
+        totalCount: number;
+        currentPage: number;
+        totalPages: number;
+    }>;
+    archiveSite(id: string, user: any): Promise<Site>;
     requestSite(id: string, user: any, status: any): Promise<import("mongoose").Document<unknown, {}, Site> & Site & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getEvents(user: any, siteId: string, status: any, search: any): Promise<Omit<Omit<Omit<import("mongoose").Document<unknown, {}, Event> & Event & {
+    uploadLogo(id: string, logo: string, user: any): Promise<import("mongoose").Document<unknown, {}, Site> & Site & {
         _id: import("mongoose").Types.ObjectId;
-    }, never>, never>, never>[]>;
-    getEmployees(user: any): Promise<(import("mongoose").Document<unknown, {}, import("src/users/schemas/user.schema").User> & import("src/users/schemas/user.schema").User & {
+    }>;
+    getSitesOwnedByMe(user: any): Promise<(import("mongoose").Document<unknown, {}, Site> & Site & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
+    getEvents(user: any, siteId: string, siteIds: string[], status: string[] | string, search: any): Promise<any[] | {
+        statusCode: number;
+        message: string;
+        events: any[];
+    }>;
+    getEmployees(user: any): Promise<Omit<import("mongoose").Document<unknown, {}, import("src/users/schemas/user.schema").User> & import("src/users/schemas/user.schema").User & {
+        _id: import("mongoose").Types.ObjectId;
+    }, never>[]>;
     getEventById(id: string): Promise<import("mongoose").Document<unknown, {}, Event> & Event & {
         _id: import("mongoose").Types.ObjectId;
     }>;
@@ -56,22 +74,25 @@ export declare class SitesController {
     deleteSite(id: string, user: any): Promise<import("mongoose").Document<unknown, {}, Site> & Site & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    createEvent(createEventDto: CreateEventDto, user: any): Promise<import("mongoose").Document<unknown, {}, Event> & Event & {
+    createEvent(createEventDto: CreateEventDto, siteId: string, user: any): Promise<import("mongoose").Document<unknown, {}, Event> & Event & {
         _id: import("mongoose").Types.ObjectId;
     }>;
     updateEvent(id: string, createEventDto: CreateEventDto, user: any): Promise<import("mongoose").Document<unknown, {}, Event> & Event & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    updateEventTicket(id: string, createEventArrayDto: [CreateEventTicketDto], user: any): Promise<import("mongoose").Document<unknown, {}, Event> & Event & {
+    updateEventTicket(ticketId: string, updateEventTicketDto: CreateEventTicketDto, user: any): Promise<import("mongoose").Document<unknown, {}, EventTicket> & EventTicket & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    addTickets(id: string, updateEventTicketDto: CreateEventTicketDto, user: any): Promise<import("mongoose").Document<unknown, {}, import("src/sites/schemas/event-ticket.schema").EventTicket> & import("src/sites/schemas/event-ticket.schema").EventTicket & {
+    addTickets(id: string, updateEventTicketDto: CreateEventTicketDto, user: any): Promise<import("mongoose").Document<unknown, {}, EventTicket> & EventTicket & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    addTicket(eventId: string, createEventTicketDto: CreateEventTicketDto, user: any): Promise<import("mongoose").Document<unknown, {}, EventTicket> & EventTicket & {
         _id: import("mongoose").Types.ObjectId;
     }>;
     deleteEvent(id: string, user: any): Promise<import("mongoose").Document<unknown, {}, Event> & Event & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    deleteTickets(id: string, user: any): Promise<import("mongoose").Document<unknown, {}, import("src/sites/schemas/event-ticket.schema").EventTicket> & import("src/sites/schemas/event-ticket.schema").EventTicket & {
+    deleteTickets(id: string, user: any): Promise<import("mongoose").Document<unknown, {}, EventTicket> & EventTicket & {
         _id: import("mongoose").Types.ObjectId;
     }>;
 }

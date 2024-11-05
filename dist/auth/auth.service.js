@@ -21,12 +21,26 @@ const jwt_1 = require("@nestjs/jwt");
 const bcrypt = require("bcrypt");
 const users_service_1 = require("../users/users.service");
 const email_service_1 = require("../email/email.service");
+const sites_service_1 = require("../sites/sites.service");
 let AuthService = class AuthService {
-    constructor(userModel, jwtService, userService, emailService) {
+    constructor(userModel, jwtService, userService, emailService, sitesService) {
         this.userModel = userModel;
         this.jwtService = jwtService;
         this.userService = userService;
         this.emailService = emailService;
+        this.sitesService = sitesService;
+    }
+    async getAllUsers() {
+        try {
+            const users = await this.userModel
+                .find()
+                .select('name _id email role')
+                .exec();
+            return users;
+        }
+        catch (error) {
+            throw new common_1.HttpException('Failed to get users', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     async register(createUserDto) {
         const { email, password } = createUserDto;
@@ -53,6 +67,15 @@ let AuthService = class AuthService {
         if (!emailRegex.test(email)) {
             throw new common_1.HttpException('Invalid email', common_1.HttpStatus.NOT_ACCEPTABLE);
         }
+        let organizerName = '';
+        if (createUserDto.worksIn) {
+            const site = await this.sitesService.getSiteById(createUserDto.worksIn);
+            if (!site) {
+                throw new common_1.HttpException('Site not found', common_1.HttpStatus.NOT_FOUND);
+            }
+            organizerName = site.name;
+        }
+        createUserDto.organizerName = organizerName;
         const saltOrRound = 10;
         const hashedPassword = await bcrypt.hash(password, saltOrRound);
         createUserDto.password = hashedPassword;
@@ -140,6 +163,7 @@ exports.AuthService = AuthService = __decorate([
     __metadata("design:paramtypes", [mongoose_2.Model,
         jwt_1.JwtService,
         users_service_1.UsersService,
-        email_service_1.EmailService])
+        email_service_1.EmailService,
+        sites_service_1.SitesService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

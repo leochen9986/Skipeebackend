@@ -55,7 +55,7 @@ __decorate([
 ], Site.prototype, "logo", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Owner of the venue' }),
-    (0, mongoose_1.Prop)({ required: false, type: mongoose_2.Types.ObjectId, ref: 'User' }),
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
 ], Site.prototype, "owner", void 0);
 __decorate([

@@ -43,11 +43,14 @@ export declare class UsersController {
     deleteMyProfile(user: any): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    requestUser(email: string, organizerName: string): Promise<string>;
+    requestUser(createUserRequestData: any): Promise<string>;
     getUserRequests(user: any): HttpException | Promise<(import("mongoose").Document<unknown, {}, UserRequests> & UserRequests & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
-    approveUserRequest(id: string, user: any): Promise<(import("mongoose").Document<unknown, {}, UserRequests> & UserRequests & {
-        _id: import("mongoose").Types.ObjectId;
-    }) | HttpException>;
+    approveUserRequest(id: string, user: any): Promise<HttpException | {
+        message: string;
+        user: import("mongoose").Document<unknown, {}, User> & User & {
+            _id: import("mongoose").Types.ObjectId;
+        };
+    }>;
 }

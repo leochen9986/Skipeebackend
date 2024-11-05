@@ -14,6 +14,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("./schemas/user.schema");
 const user_request_1 = require("./schemas/user-request");
 const email_module_1 = require("../email/email.module");
+const sites_schema_1 = require("../sites/schemas/sites.schema");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -23,7 +24,8 @@ exports.UsersModule = UsersModule = __decorate([
             email_module_1.EmailModule,
             mongoose_1.MongooseModule.forFeature([
                 { name: user_schema_1.User.name, schema: user_schema_1.UserSchema },
-                { name: user_request_1.UserRequests.name, schema: user_request_1.UserRequestsSchema }
+                { name: user_request_1.UserRequests.name, schema: user_request_1.UserRequestsSchema },
+                { name: sites_schema_1.Site.name, schema: sites_schema_1.SiteSchema },
             ]),
         ],
         controllers: [users_controller_1.UsersController],

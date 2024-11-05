@@ -17,23 +17,25 @@ const users_module_1 = require("../users/users.module");
 const event_ticket_schema_1 = require("./schemas/event-ticket.schema");
 const event_schema_1 = require("./schemas/event.schema");
 const user_schema_1 = require("../users/schemas/user.schema");
+const common_2 = require("@nestjs/common");
 let SitesModule = class SitesModule {
 };
 exports.SitesModule = SitesModule;
 exports.SitesModule = SitesModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            (0, common_2.forwardRef)(() => auth_module_1.AuthModule),
             mongoose_1.MongooseModule.forFeature([
                 { name: sites_schema_1.Site.name, schema: sites_schema_1.SiteSchema },
                 { name: event_schema_1.Event.name, schema: event_schema_1.EventSchema },
                 { name: event_ticket_schema_1.EventTicket.name, schema: event_ticket_schema_1.EventTicketSchema },
                 { name: user_schema_1.User.name, schema: user_schema_1.UserSchema },
             ]),
-            auth_module_1.AuthModule,
             users_module_1.UsersModule,
         ],
         controllers: [sites_controller_1.SitesController],
         providers: [sites_service_1.SitesService],
+        exports: [sites_service_1.SitesService],
     })
 ], SitesModule);
 //# sourceMappingURL=sites.module.js.map

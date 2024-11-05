@@ -5,5 +5,6 @@ export declare class CreateUserDto {
     password: string;
     role: UserRoles;
     worksIn: string;
+    organizerName?: string;
     isActive: boolean;
 }

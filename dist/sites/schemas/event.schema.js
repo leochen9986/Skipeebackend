@@ -94,6 +94,14 @@ __decorate([
     (0, mongoose_1.Prop)({ enum: eventStatus, default: eventStatus.DRAFT }),
     __metadata("design:type", String)
 ], Event.prototype, "status", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], Event.prototype, "limitQuantity", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], Event.prototype, "singleEvent", void 0);
 exports.Event = Event = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Event);

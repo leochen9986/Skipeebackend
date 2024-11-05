@@ -15,6 +15,8 @@ const user_schema_1 = require("../users/schemas/user.schema");
 const jwt_1 = require("@nestjs/jwt");
 const users_module_1 = require("../users/users.module");
 const email_module_1 = require("../email/email.module");
+const sites_module_1 = require("../sites/sites.module");
+const common_2 = require("@nestjs/common");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -22,6 +24,7 @@ exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
         imports: [
+            (0, common_2.forwardRef)(() => sites_module_1.SitesModule),
             jwt_1.JwtModule,
             users_module_1.UsersModule,
             email_module_1.EmailModule,

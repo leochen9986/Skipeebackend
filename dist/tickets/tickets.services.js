@@ -48,7 +48,7 @@ let TicketsServices = class TicketsServices {
         if (!result) {
             throw new common_1.HttpException('Failed to create ticket', common_1.HttpStatus.NOT_FOUND);
         }
-        return await this.createCheckoutSession(result._id.toString(), 'skipee-web-3xdw.vercel.app');
+        return await this.createCheckoutSession(result._id.toString(), '104.248.165.72:3000');
     }
     async approveTicket(id, quantity) {
         const ticket = await this.ticketModel.findById(id);
@@ -118,7 +118,7 @@ let TicketsServices = class TicketsServices {
 
       <br/>
       <br/>
-      <strong><a href="https://skipee-web-3xdw.vercel.app/#/book/${check._id}?success=true">Link to get your ticket</a></strong>
+      <strong><a href="http://104.248.165.72:3000/#/book/${check._id}?success=true">Link to get your ticket</a></strong>
       <br/>
       <br/>
 

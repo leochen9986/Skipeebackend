@@ -39,6 +39,8 @@ export declare class User {
     email: string;
     password: string;
     role: UserRoles;
+    organizerName: string;
+    phone: string;
     isActive: boolean;
     lastSeen: Date;
     gender: Gender;

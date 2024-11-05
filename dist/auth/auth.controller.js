@@ -20,12 +20,19 @@ const auth_service_1 = require("./auth.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const secure_decorator_1 = require("./decorator/secure.decorator");
 const user_decorator_1 = require("./decorator/user.decorator");
+const user_schema_1 = require("../users/schemas/user.schema");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
     register(createUserDto) {
         return this.authService.register(createUserDto);
+    }
+    async getAllUsers(user) {
+        if (user.role !== 'admin') {
+            throw new common_1.HttpException('Forbidden', common_1.HttpStatus.FORBIDDEN);
+        }
+        return this.authService.getAllUsers();
     }
     login(email, password) {
         return this.authService.login(email, password);
@@ -51,6 +58,18 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Get)('users'),
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, secure_decorator_1.UserSecure)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all users' }),
+    (0, swagger_1.ApiOkResponse)({ type: [user_schema_1.User] }),
+    openapi.ApiResponse({ status: 200, type: [require("../users/schemas/user.schema").User] }),
+    __param(0, (0, user_decorator_1.FUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "getAllUsers", null);
 __decorate([
     (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({ summary: 'Login an existing user' }),

@@ -39,8 +39,8 @@ let UsersController = class UsersController {
     deleteMyProfile(user) {
         return this.usersService.deleteUser(user._id);
     }
-    requestUser(email, organizerName) {
-        return this.usersService.requestUser(email, organizerName);
+    async requestUser(createUserRequestData) {
+        return this.usersService.requestUser(createUserRequestData);
     }
     getUserRequests(user) {
         if (user.role === 'admin')
@@ -137,16 +137,15 @@ __decorate([
         type: user_request_1.UserRequests,
     }),
     (0, swagger_1.ApiBody)({
-        type: String,
+        type: user_request_1.UserRequests,
         required: true,
-        description: 'User email to request',
+        description: 'User data to request',
     }),
     openapi.ApiResponse({ status: 201, type: String }),
-    __param(0, (0, common_1.Body)('email')),
-    __param(1, (0, common_1.Body)('organizerName')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "requestUser", null);
 __decorate([
     (0, common_1.Get)('/request'),

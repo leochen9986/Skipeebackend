@@ -28,12 +28,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { EmailService } from 'src/email/email.service';
+import { SitesService } from 'src/sites/sites.service';
 export declare class AuthService {
     private readonly userModel;
     private readonly jwtService;
     private readonly userService;
     private readonly emailService;
-    constructor(userModel: Model<User>, jwtService: JwtService, userService: UsersService, emailService: EmailService);
+    private readonly sitesService;
+    constructor(userModel: Model<User>, jwtService: JwtService, userService: UsersService, emailService: EmailService, sitesService: SitesService);
+    getAllUsers(): Promise<User[]>;
     register(createUserDto: CreateUserDto): Promise<{
         user: import("mongoose").Document<unknown, {}, User> & User & {
             _id: import("mongoose").Types.ObjectId;

@@ -13,9 +13,10 @@ exports.CreateUserDto = void 0;
 const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
 const user_schema_1 = require("../../users/schemas/user.schema");
+const class_validator_1 = require("class-validator");
 class CreateUserDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String }, role: { required: true, enum: require("../../users/schemas/user.schema").UserRoles }, worksIn: { required: true, type: () => String }, isActive: { required: true, type: () => Boolean } };
+        return { name: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String }, role: { required: true, enum: require("../../users/schemas/user.schema").UserRoles }, worksIn: { required: true, type: () => String }, organizerName: { required: false, type: () => String }, isActive: { required: true, type: () => Boolean } };
     }
 }
 exports.CreateUserDto = CreateUserDto;
@@ -39,6 +40,11 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, example: '0240u34nwendiwnciwec' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "worksIn", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "organizerName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: false, default: false, example: true }),
     __metadata("design:type", Boolean)

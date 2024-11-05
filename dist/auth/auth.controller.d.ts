@@ -25,25 +25,27 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { User } from 'src/users/schemas/user.schema';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
     register(createUserDto: CreateUserDto): Promise<{
-        user: import("mongoose").Document<unknown, {}, import("src/users/schemas/user.schema").User> & import("src/users/schemas/user.schema").User & {
+        user: import("mongoose").Document<unknown, {}, User> & User & {
             _id: import("mongoose").Types.ObjectId;
         };
         token: string;
     }>;
+    getAllUsers(user: any): Promise<User[]>;
     login(email: string, password: string): Promise<{
-        user: import("mongoose").Document<unknown, {}, import("src/users/schemas/user.schema").User> & import("src/users/schemas/user.schema").User & {
+        user: import("mongoose").Document<unknown, {}, User> & User & {
             _id: import("mongoose").Types.ObjectId;
         };
         token: string;
     }>;
-    forgotPassword(email: string, host: string): Promise<import("mongoose").Document<unknown, {}, import("src/users/schemas/user.schema").User> & import("src/users/schemas/user.schema").User & {
+    forgotPassword(email: string, host: string): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    resetPassword(token: string, password: string): Promise<import("mongoose").Document<unknown, {}, import("src/users/schemas/user.schema").User> & import("src/users/schemas/user.schema").User & {
+    resetPassword(token: string, password: string): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
     sayHello(user: any): any;

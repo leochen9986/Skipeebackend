@@ -44,6 +44,14 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], User.prototype, "organizerName", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: false, default: true }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isActive", void 0);

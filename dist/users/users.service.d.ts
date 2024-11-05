@@ -24,6 +24,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
+import { Site } from '../sites/schemas/sites.schema';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRequests } from './schemas/user-request';
 import { EmailService } from 'src/email/email.service';
@@ -31,7 +32,8 @@ export declare class UsersService {
     private readonly userModel;
     private readonly userRequestModel;
     private readonly emailService;
-    constructor(userModel: Model<User>, userRequestModel: Model<UserRequests>, emailService: EmailService);
+    private readonly siteModel;
+    constructor(userModel: Model<User>, userRequestModel: Model<UserRequests>, emailService: EmailService, siteModel: Model<Site>);
     updateMyProfile(userId: string, updateUserDto: UpdateUserDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
@@ -41,12 +43,15 @@ export declare class UsersService {
     getUser(userId: string): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    requestUser(email: string, organizerName: string): Promise<string>;
+    requestUser(createUserRequestData: any): Promise<string>;
     getUserRequests(): Promise<(import("mongoose").Document<unknown, {}, UserRequests> & UserRequests & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
-    approveUserRequest(id: string): Promise<import("mongoose").Document<unknown, {}, UserRequests> & UserRequests & {
-        _id: import("mongoose").Types.ObjectId;
+    approveUserRequest(id: string): Promise<{
+        message: string;
+        user: import("mongoose").Document<unknown, {}, User> & User & {
+            _id: import("mongoose").Types.ObjectId;
+        };
     }>;
     getUserRequest(email: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, UserRequests> & UserRequests & {
         _id: import("mongoose").Types.ObjectId;
