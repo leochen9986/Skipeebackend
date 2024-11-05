@@ -8,4 +8,6 @@ export declare class CreateEventDto {
     location: string;
     lastEntryTime: Date;
     minAgeLimit: number;
+    limitQuantity?: boolean;
+    singleEvent?: boolean;
 }

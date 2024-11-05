@@ -13,9 +13,10 @@ exports.CreateEventDto = void 0;
 const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
 class CreateEventDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, description: { required: true, type: () => String }, image: { required: true, type: () => String }, date: { required: true, type: () => Date }, startTime: { required: true, type: () => Date }, endTime: { required: true, type: () => Date }, location: { required: true, type: () => String }, lastEntryTime: { required: true, type: () => Date }, minAgeLimit: { required: true, type: () => Number } };
+        return { name: { required: true, type: () => String }, description: { required: true, type: () => String }, image: { required: true, type: () => String }, date: { required: true, type: () => Date }, startTime: { required: true, type: () => Date }, endTime: { required: true, type: () => Date }, location: { required: true, type: () => String }, lastEntryTime: { required: true, type: () => Date }, minAgeLimit: { required: true, type: () => Number }, limitQuantity: { required: false, type: () => Boolean }, singleEvent: { required: false, type: () => Boolean } };
     }
 }
 exports.CreateEventDto = CreateEventDto;
@@ -44,6 +45,7 @@ __decorate([
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Transform)(({ value }) => value && value.trim() !== '' ? value : 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1'),
     __metadata("design:type", String)
 ], CreateEventDto.prototype, "image", void 0);
 __decorate([
@@ -94,4 +96,14 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], CreateEventDto.prototype, "minAgeLimit", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateEventDto.prototype, "limitQuantity", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateEventDto.prototype, "singleEvent", void 0);
 //# sourceMappingURL=create-events.dto.js.map
