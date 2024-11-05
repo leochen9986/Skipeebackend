@@ -7,6 +7,8 @@ import {
   Delete,
   Put,
   Query,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -93,6 +95,75 @@ export class SitesController {
   
     // Call service method with the skipping filter
     return this.sitesService.getAllSites(search, isArchived, isSkipping, isTicketing, ownerId);
+  }
+
+  @Get('/paginated')
+  @Public()
+  @ApiOperation({ summary: 'Get paginated and filtered sites' })
+  @ApiQuery({ name: 'search', description: 'Search term', required: false })
+  @ApiQuery({ name: 'archived', description: 'Filter by archived status', required: false })
+  @ApiQuery({ name: 'skipping', description: 'Filter by skipping status', required: false })
+  @ApiQuery({ name: 'ticketing', description: 'Filter by ticketing status', required: false })
+  @ApiQuery({ name: 'ownerId', description: 'Filter by owner ID', required: false })
+  @ApiQuery({ name: 'page', description: 'Page number', required: false })
+  @ApiQuery({ name: 'limit', description: 'Items per page', required: false })
+  @ApiOkResponse({ type: [Site] })
+  getPaginatedSites(
+    @Query('search') search: string,
+    @Query('archived') archived: string,
+    @Query('skipping') skipping: string,
+    @Query('ticketing') ticketing: string,
+    @Query('ownerId') ownerId: string,
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    let isArchived: boolean;
+    let isSkipping: boolean;
+    let isTicketing: boolean;
+
+    // Parse boolean query parameters
+    if (archived === 'true') {
+      isArchived = true;
+    } else if (archived === 'false') {
+      isArchived = false;
+    }
+
+    if (skipping === 'true') {
+      isSkipping = true;
+    } else if (skipping === 'false') {
+      isSkipping = false;
+    }
+
+    if (ticketing === 'true') {
+      isTicketing = true;
+    } else if (ticketing === 'false') {
+      isTicketing = false;
+    }
+
+    // Parse pagination parameters with defaults
+    const pageNumber = parseInt(page, 10) || 1;
+    const limitNumber = parseInt(limit, 10) || 10;
+
+    return this.sitesService.getPaginatedSites(
+      search,
+      isArchived,
+      isSkipping,
+      isTicketing,
+      ownerId,
+      pageNumber,
+      limitNumber,
+    );
+  }
+
+  @Put('/:id/archive')
+  @ApiOperation({ summary: 'Archive a site' })
+  @ApiParam({ name: 'id', description: 'Site id' })
+  async archiveSite(@Param('id') id: string, @FUser() user) {
+    try {
+      return await this.sitesService.archiveSite(id, user._id);
+    } catch (error) {
+      throw new HttpException(error.message, error.status || HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put('/:id/request')

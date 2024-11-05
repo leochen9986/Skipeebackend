@@ -5,12 +5,15 @@ import {
   Headers,
   Post,
   UseGuards,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags,ApiOkResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserSecure } from './decorator/secure.decorator';
 import { FUser } from './decorator/user.decorator';
+import { User } from 'src/users/schemas/user.schema';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -23,6 +26,21 @@ export class AuthController {
   register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
+
+  @Get('users')
+  @ApiBearerAuth()
+  @UserSecure()
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiOkResponse({ type: [User] })
+  async getAllUsers(@FUser() user): Promise<User[]> {
+    if (user.role !== 'admin') {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    return this.authService.getAllUsers();
+  }
+
+
+
 
   @Post('login')
   @ApiOperation({ summary: 'Login an existing user' })

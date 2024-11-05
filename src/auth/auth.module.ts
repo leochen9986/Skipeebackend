@@ -8,6 +8,7 @@ import { UsersModule } from 'src/users/users.module';
 import { EmailModule } from 'src/email/email.module';
 import { SitesModule } from 'src/sites/sites.module'; // Import SitesModule
 import { forwardRef } from '@nestjs/common';
+
 @Global()
 @Module({
   imports: [

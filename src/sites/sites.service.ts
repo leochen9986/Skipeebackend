@@ -90,6 +90,89 @@ export class SitesService {
     }
     return result;
   }
+
+
+  async getPaginatedSites(
+    search: string,
+    archived?: boolean,
+    skipping?: boolean,
+    ticketing?: boolean,
+    ownerId?: string,
+    pageNumber: number = 1,
+    limitNumber: number = 10,
+  ) {
+    const filter: any = {};
+
+    if (archived !== undefined) {
+      filter.archived = archived;
+    } else {
+      filter.archived = false; // Default to non-archived sites
+    }
+
+    if (skipping !== undefined) {
+      filter.skipping = skipping;
+    }
+
+    if (ticketing !== undefined) {
+      filter.ticketing = ticketing;
+    }
+
+    if (search) {
+      filter.name = new RegExp(search, 'i');
+    }
+
+    if (ownerId) {
+      if (!mongoose.Types.ObjectId.isValid(ownerId)) {
+        throw new HttpException('Invalid ownerId', HttpStatus.BAD_REQUEST);
+      }
+      filter.owner = new Types.ObjectId(ownerId);
+    }
+
+    const skip = (pageNumber - 1) * limitNumber;
+
+    const sites = await this.siteModel
+      .find(filter)
+      .populate('owner')
+      .skip(skip)
+      .limit(limitNumber)
+      .exec();
+
+    const totalCount = await this.siteModel.countDocuments(filter);
+
+    const totalPages = Math.ceil(totalCount / limitNumber);
+
+    return {
+      sites,
+      totalCount,
+      currentPage: pageNumber,
+      totalPages,
+    };
+  }
+
+
+  async archiveSite(siteId: string, userId: string): Promise<Site> {
+    if (!mongoose.Types.ObjectId.isValid(siteId)) {
+      throw new HttpException('Invalid site ID', HttpStatus.BAD_REQUEST);
+    }
+
+    const site = await this.siteModel.findById(siteId);
+    if (!site) {
+      throw new HttpException('Site not found', HttpStatus.NOT_FOUND);
+    }
+
+    // Optional: Check if the user is authorized to archive the site
+    // For example, only the owner or an admin can archive the site
+    // if (site.owner.toString() !== userId.toString()) {
+    //   throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    // }
+
+    site.archived = true;
+    await site.save();
+
+    return site;
+  }
+  
+
   async getAllSites(search: string, archived?: boolean, skipping?: boolean, ticketing?:boolean, ownerId?: string, ) {
     const filter: any = {};
     console.log("heyyy");

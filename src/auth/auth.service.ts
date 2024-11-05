@@ -19,6 +19,21 @@ export class AuthService {
     private readonly sitesService: SitesService, // Inject SitesService
   ) {}
 
+  async getAllUsers(): Promise<User[]> {
+    try {
+      const users = await this.userModel
+        .find()
+        .select('name _id email role')
+        .exec();
+      return users;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to get users',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   async register(createUserDto: CreateUserDto) {
     const { email, password } = createUserDto;
 
@@ -46,6 +61,8 @@ export class AuthService {
         
       }
     }
+
+    
 
     const user = await this.userModel.findOne({ email });
     if (user) {
