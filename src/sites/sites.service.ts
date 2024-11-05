@@ -386,6 +386,10 @@ export class SitesService {
     return result;
   }
 
+  async getSitesOwnedByUser(userId: string) {
+    return this.siteModel.find({ owner: userId });
+  }
+
   async getEvents(siteId: string, siteIds: string[], status: string[] | string, search: string, user: any) {
     const now = new Date().setHours(0, 0, 0, 0);
   
@@ -502,17 +506,25 @@ export class SitesService {
   }
 
   async getEmployees(userId: string) {
-    const user = await this.usersService.getUser(userId);
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    // Step 1: Find all sites where the owner is the current user
+    const userOwnedSites = await this.siteModel.find({ owner: userId });
+  
+    if (!userOwnedSites || userOwnedSites.length === 0) {
+      throw new HttpException('No sites found for the given owner', HttpStatus.NOT_FOUND);
     }
-    if (!user.worksIn || user.worksIn === null) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-    }
-    const allUsersForSite = await this.userModel.find({
-      worksIn: user.worksIn._id.toString(),
-    });
-    return allUsersForSite;
+  
+    // Convert each ObjectId in `siteIds` to a string to match the `worksIn` type in `User` schema
+    const siteIds = userOwnedSites.map((site) => site._id.toString());
+    console.log(siteIds);
+  
+    // Step 2: Find all users whose worksIn field matches any of the user's owned site IDs
+    const employees = await this.userModel
+      .find({
+        worksIn: { $in: siteIds },
+      })
+      .populate('worksIn'); // Populate worksIn field with full site details
+  
+    return employees;
   }
 
   async deleteEvent(id: string, userId: string) {

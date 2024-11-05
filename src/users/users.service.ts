@@ -149,7 +149,7 @@ export class UsersService {
       owner: null, // We'll set the owner after creating the user
       logo: 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1', // Set a default or placeholder logo
       location: 'HQ', // Set default or gather from user
-      skipping: false, // Default value or as per your logic
+      skipping: true, // Default value or as per your logic
       ticketing: false, // Default value or as per your logic
       // Set other fields as necessary
     });

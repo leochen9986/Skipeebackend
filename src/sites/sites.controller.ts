@@ -117,6 +117,14 @@ export class SitesController {
     return this.sitesService.updateLogo(id, logo, user._id);
   }
 
+  @Get('/owned-by-me')
+@UserSecure()
+@ApiBearerAuth()
+async getSitesOwnedByMe(@FUser() user) {
+  return this.sitesService.getSitesOwnedByUser(user._id);
+}
+
+
   @Public()
   @Get('/events')
   @ApiOperation({ summary: 'Get all events for a site' })

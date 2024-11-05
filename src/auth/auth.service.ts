@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { EmailService } from 'src/email/email.service';
+import { SitesService } from 'src/sites/sites.service'; // Import SitesService
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly userService: UsersService,
     private readonly emailService: EmailService,
+    private readonly sitesService: SitesService, // Inject SitesService
   ) {}
 
   async register(createUserDto: CreateUserDto) {
@@ -62,6 +64,17 @@ export class AuthService {
     if (!emailRegex.test(email)) {
       throw new HttpException('Invalid email', HttpStatus.NOT_ACCEPTABLE);
     }
+
+    let organizerName = '';
+    if (createUserDto.worksIn) {
+      const site = await this.sitesService.getSiteById(createUserDto.worksIn);
+      if (!site) {
+        throw new HttpException('Site not found', HttpStatus.NOT_FOUND);
+      }
+      organizerName = site.name;
+    }
+    
+    createUserDto.organizerName = organizerName;
 
     const saltOrRound = 10;
 
