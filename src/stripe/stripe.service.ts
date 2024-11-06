@@ -108,8 +108,34 @@ export class StripeService {
       if (canAcceptPayments)
         dashboardLink = await this.getStripeDashboardLink(site.stripeAccountId);
 
+      console.log(canAcceptPayments);
+
       return { canAcceptPayments, account, accountLink, dashboardLink };
     }
+
+    if (user.stripeAccountId) {
+      
+      site.stripeAccountId = user.stripeAccountId;
+      await site.save();
+
+      const accountLink = await this.createAccountLink(site.stripeAccountId);
+      const account = await this.stripe.accounts.retrieve(site.stripeAccountId);
+
+      const canAcceptPayments =
+        account.details_submitted &&
+        account.charges_enabled &&
+        account.payouts_enabled &&
+        account.requirements.currently_due.length === 0;
+
+      if (canAcceptPayments)
+        dashboardLink = await this.getStripeDashboardLink(site.stripeAccountId);
+
+      console.log(canAcceptPayments);
+
+      return { canAcceptPayments, account, accountLink, dashboardLink };
+
+    }
+
     // Create new account
     const account = await this.stripe.accounts.create({
       type: 'express',
@@ -121,6 +147,8 @@ export class StripeService {
     });
 
     site.stripeAccountId = account.id;
+    user.stripeAccountId = account.id;
+  
     await site.save();
 
     const accountLink = await this.createAccountLink(account.id);
@@ -144,8 +172,8 @@ export class StripeService {
   private async createAccountLink(accountId: string) {
     const link = await this.stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `http://104.248.165.72:3000//#/manage-account`,
-      return_url: `http://104.248.165.72:3000//#/manage-account`,
+      refresh_url: `http://127.0.0.1:3000/#/manage-account`,
+      return_url: `http://127.0.0.1:3000/#/manage-account`,
       type: 'account_onboarding',
     });
 

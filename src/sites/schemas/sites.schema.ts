@@ -50,7 +50,7 @@ export class Site {
   approved: boolean;
 
   @ApiProperty({ description: 'Stripe account id' })
-  @Prop({ required: false, default: "acct_1Q1lhtFZdkAkFakl" })
+  @Prop({ required: false, default: null })
   stripeAccountId: string;
 
   @ApiProperty({ description: 'Minimum commission amount' })

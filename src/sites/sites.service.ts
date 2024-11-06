@@ -61,6 +61,7 @@ export class SitesService {
     const ownedSite = await this.siteModel.findOne({
       owner: owner._id,
     });
+    
 
     if (ownedSite && !owner.worksIn) {
       await this.usersService.updateMyProfile(owner._id.toString(), {

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSchema = exports.User = exports.UserRoles = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const swagger_1 = require("@nestjs/swagger");
 var UserRoles;
 (function (UserRoles) {
     UserRoles["Admin"] = "admin";
@@ -67,6 +68,11 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
 ], User.prototype, "birthDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Stripe account id' }),
+    (0, mongoose_1.Prop)({ required: false, default: null }),
+    __metadata("design:type", String)
+], User.prototype, "stripeAccountId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, type: mongoose_2.Types.ObjectId, ref: 'Site' }),
     __metadata("design:type", mongoose_2.Types.ObjectId)

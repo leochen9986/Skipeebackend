@@ -45,6 +45,7 @@ export declare class User {
     lastSeen: Date;
     gender: Gender;
     birthDate: Date;
+    stripeAccountId: string;
     worksIn: Types.ObjectId;
 }
 export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, import("mongoose").Document<unknown, any, User> & User & {

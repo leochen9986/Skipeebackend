@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 
 export type UsersDocument = HydratedDocument<User>;
 
@@ -46,6 +47,11 @@ export class User {
 
   @Prop({ required: false })
   birthDate: Date;
+
+  @ApiProperty({ description: 'Stripe account id' })
+  @Prop({ required: false, default: null })
+  stripeAccountId: string;
+
 
   @Prop({ required: false, type: Types.ObjectId, ref: 'Site' })
   worksIn: Types.ObjectId;

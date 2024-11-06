@@ -70,7 +70,7 @@ __decorate([
 ], Site.prototype, "approved", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Stripe account id' }),
-    (0, mongoose_1.Prop)({ required: false, default: "acct_1Q1lhtFZdkAkFakl" }),
+    (0, mongoose_1.Prop)({ required: false, default: null }),
     __metadata("design:type", String)
 ], Site.prototype, "stripeAccountId", void 0);
 __decorate([
