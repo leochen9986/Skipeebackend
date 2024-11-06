@@ -123,8 +123,8 @@ let StripeService = class StripeService {
     async createAccountLink(accountId) {
         const link = await this.stripe.accountLinks.create({
             account: accountId,
-            refresh_url: `http://127.0.0.1:3000/#/manage-account`,
-            return_url: `http://127.0.0.1:3000/#/manage-account`,
+            refresh_url: `http://104.248.165.72:3000/#/manage-account`,
+            return_url: `http://104.248.165.72:3000/#/manage-account`,
             type: 'account_onboarding',
         });
         return link.url;
