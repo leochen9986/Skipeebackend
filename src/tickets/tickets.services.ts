@@ -23,24 +23,20 @@ export class TicketsServices {
   }
 
   async createTicket(ticket: CreateTicketDto) {
-    const eventTicket = await this.eventTicketModel.findById(
-      ticket.eventTicket,
-    );
+    const eventTicket = await this.eventTicketModel.findById(ticket.eventTicket);
     if (!eventTicket) {
       throw new HttpException('Event ticket not found', HttpStatus.NOT_FOUND);
     }
     const availableTicketQuantity = parseInt(eventTicket.availableQuantity);
     if (availableTicketQuantity < ticket.noOfUser) {
-      throw new HttpException(
-        'Not enough tickets available',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('Not enough tickets available', HttpStatus.NOT_FOUND);
     }
     const createdTicket = new this.ticketModel({
       ...ticket,
       site: eventTicket.site,
       event: eventTicket.event,
       amount: parseFloat(eventTicket.price) * ticket.noOfUser,
+      isConfirmed: false, // Set to false initially
     });
     const result = await createdTicket.save();
     if (!result) {
@@ -87,71 +83,77 @@ export class TicketsServices {
     return result;
   }
 
-  async confirmTicket(id: string) {
-    const check = await this.ticketModel.findById(id);
-    if (!check) {
-      throw new HttpException('Ticket not found', HttpStatus.NOT_FOUND);
-    }
+// tickets.services.ts
+
+async confirmTicket(id: string) {
+  const ticket = await this.ticketModel.findById(id);
+  if (!ticket) {
+    throw new HttpException('Ticket not found', HttpStatus.NOT_FOUND);
+  }
+  if (ticket.isConfirmed) {
+    // Ticket is already confirmed
+    return ticket;
+  }
+  const session = await this.stripe.checkout.sessions.retrieve(ticket.stripeSessionId);
+  if (session.payment_status === 'paid') {
+    // Payment successful, confirm the ticket
     const result = await this.ticketModel.findByIdAndUpdate(id, {
       isConfirmed: true,
-    });
+    }, { new: true });
     if (!result) {
       throw new HttpException('Failed to confirm ticket', HttpStatus.NOT_FOUND);
     }
+    const eventTicket = await this.eventTicketModel
+      .findById(result.eventTicket.toString())
+      .populate('site')
+      .populate('event');
+    // Decrement the available quantity
+    await this.eventTicketModel.findByIdAndUpdate(eventTicket._id, {
+      availableQuantity: (
+        parseInt(eventTicket.availableQuantity) - result.noOfUser
+      ).toString(),
+    });
 
-    if (!check.isConfirmed) {
-      const eventTicket = await this.eventTicketModel
-        .findById(result.eventTicket.toString())
-        .populate('site')
-        .populate('event');
-      await this.eventTicketModel.findByIdAndUpdate(eventTicket._id, {
-        availableQuantity: (
-          parseInt(eventTicket.availableQuantity) - result.noOfUser
-        ).toString(),
-      });
-
-      await this.emailService.sendEmail(
-        check.phone,
-        'Ticket Confirmation Skipee',
-        'Your ticket has been confirmed',
-        `
-
+    // Send confirmation email
+    await this.emailService.sendEmail(
+      ticket.phone,
+      'Ticket Confirmation Skipee',
+      'Your ticket has been confirmed',
+      `
       <h1>Ticket Confirmation</h1>
-      <p>Hi ${check.name},</p>
-      <p>Thank you for using Skipee. Your ticket has been confirmed. </p>
-      <h2> Your ticket details are: </h2>
+      <p>Hi ${ticket.name},</p>
+      <p>Thank you for using Skipee. Your ticket has been confirmed.</p>
+      <h2>Your ticket details are:</h2>
       <ul>
-          <li>Name: ${check.name}</li>
-          <li>Email: ${check.phone}</li>
+          <li>Name: ${ticket.name}</li>
+          <li>Email: ${ticket.phone}</li>
           <li>Event Name: ${(eventTicket.event as any).name}</li>
           <li>Ticket Name: ${(eventTicket as any).name}</li>
-          <li>Quantity: ${result.noOfUser}</li>
+          <li>Quantity: ${ticket.noOfUser}</li>
           <li>Price: ${(eventTicket as any).price} / Person</li>
-          <li>Total Amount: ${result.amount}</li>
+          <li>Total Amount: ${ticket.amount}</li>
       </ul>
-
-      <h2>Evnet Details</h2>
+      <h2>Event Details</h2>
       <ul>
           <li>Name: ${(eventTicket.event as any).name}</li>
           <li>Time: ${(eventTicket.event as any).startTime} | ${(eventTicket.event as any).endTime}</li>
           <li>Location: ${(eventTicket.event as any).location}</li>
           <li>Host: ${(eventTicket.site as any).name}</li>
       </ul>
-
       <br/>
+      <strong><a href="http://104.248.165.72:3000/#/book/${ticket._id}?success=true">Link to get your ticket</a></strong>
       <br/>
-      <strong><a href="http://104.248.165.72:3000/#/book/${check._id}?success=true">Link to get your ticket</a></strong>
-      <br/>
-      <br/>
-
-      <p> Thank you for using Skipee. </p>
-      <p> Skipee Team </p>
+      <p>Thank you for using Skipee.</p>
+      <p>Skipee Team</p>
       `,
-      );
-    }
+    );
 
     return result;
+  } else {
+    throw new HttpException('Payment not confirmed', HttpStatus.BAD_REQUEST);
   }
+}
+
 
   async getTickets(id: string) {
     const tickets = await this.ticketModel.findById(id).populate({
@@ -187,28 +189,30 @@ export class TicketsServices {
     if (!ticket) {
       throw new HttpException('Ticket not found', HttpStatus.NOT_FOUND);
     }
-
-    let comission = 0;
-
+  
+    let commission = 0;
+  
     if (ticket.site) {
       const siteModel = ticket.site as any;
-      comission += siteModel.baseCommission;
-      comission += (ticket.amount * siteModel.percentageCommission) / 100;
-      comission = Math.min(comission, siteModel.maxCommission);
-      comission = Math.max(comission, siteModel.minCommission);
-
-      comission = Math.floor(comission * 100);
+      commission += siteModel.baseCommission;
+      commission += (ticket.amount * siteModel.percentageCommission) / 100;
+      commission = Math.min(commission, siteModel.maxCommission);
+      commission = Math.max(commission, siteModel.minCommission);
+  
+      commission = Math.floor(commission * 100);
     }
 
+    console.log(commission);
+  
     const line_items = [];
     let eventTicket = ticket.eventTicket;
-
+  
     if (!(ticket.eventTicket && (ticket.eventTicket as any).price)) {
       eventTicket = await this.eventTicketModel.findById(
         ticket.eventTicket.toString(),
       );
     }
-
+  
     line_items.push({
       price_data: {
         currency: 'GBP',
@@ -219,14 +223,14 @@ export class TicketsServices {
       },
       quantity: ticket.noOfUser,
     });
-
+  
     const session = await this.stripe.checkout.sessions.create({
       line_items,
       mode: 'payment',
       success_url: 'http://' + host + '/#/book/' + ticketId + '?success=true',
       cancel_url: 'http://' + host + '/#/book/' + ticketId + '?success=false',
       payment_intent_data: {
-        application_fee_amount: comission,
+        application_fee_amount: commission,
         transfer_data: {
           destination: (ticket.site as any).stripeAccountId,
         },
@@ -237,6 +241,10 @@ export class TicketsServices {
         event: (eventTicket as any).event.toString(),
       },
     });
+  
+    // Save the Stripe session ID to the ticket for later confirmation
+    await this.ticketModel.findByIdAndUpdate(ticketId, { stripeSessionId: session.id });
+  
     return session;
   }
 

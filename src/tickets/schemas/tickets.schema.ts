@@ -32,6 +32,9 @@ export class Ticket {
   @Prop({ default: false })
   isConfirmed: boolean;
 
+  @Prop({ default: false })
+  stripeSessionId: string;
+
   @Prop({ default: 0 })
   entered: number;
 }
