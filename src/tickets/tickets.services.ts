@@ -154,6 +154,29 @@ async confirmTicket(id: string) {
   }
 }
 
+async cancelTicket(id: string) {
+  const ticket = await this.ticketModel.findById(id);
+  if (!ticket) {
+    throw new HttpException('Ticket not found', HttpStatus.NOT_FOUND);
+  }
+
+  if (ticket.isConfirmed) {
+    throw new HttpException('Confirmed tickets cannot be canceled', HttpStatus.BAD_REQUEST);
+  }
+
+  const result = await this.ticketModel.findByIdAndUpdate(
+    id,
+    { isCancelled: true },
+  );
+
+  if (!result) {
+    throw new HttpException('Failed to cancel ticket', HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  return result;
+}
+
+
 
   async getTickets(id: string) {
     const tickets = await this.ticketModel.findById(id).populate({

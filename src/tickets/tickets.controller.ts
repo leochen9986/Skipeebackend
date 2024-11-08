@@ -38,7 +38,10 @@ export class TicketsController {
     return this.ticketsService.confirmTicket(id);
   }
   
-
+  @Get('/cancel/:id')
+  cancelTicket(@Param('id') id: string) {
+    return this.ticketsService.cancelTicket(id);
+  }
 
   @Post()
   createTicket(@Body() createTicketDto: CreateTicketDto) {
