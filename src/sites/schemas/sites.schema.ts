@@ -54,7 +54,7 @@ export class Site {
   stripeAccountId: string;
 
   @ApiProperty({ description: 'Minimum commission amount' })
-  @Prop({ required: true, default: 0 })
+  @Prop({ required: true, default: 1 })
   minCommission: number;
 
   @ApiProperty({ description: 'Maximum commission amount' })
@@ -62,11 +62,11 @@ export class Site {
   maxCommission: number;
 
   @ApiProperty({ description: 'Percentage commission' })
-  @Prop({ required: true, default: 0 })
+  @Prop({ required: true, default: 20 })
   percentageCommission: number;
 
   @ApiProperty({ description: 'Base commission amount' })
-  @Prop({ required: true, default: 0 })
+  @Prop({ required: true, default: 1 })
   baseCommission: number;
 }
 

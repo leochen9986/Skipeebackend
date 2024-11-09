@@ -209,51 +209,55 @@ async cancelTicket(id: string) {
       .findById(ticketId)
       .populate('eventTicket')
       .populate('site');
+  
     if (!ticket) {
       throw new HttpException('Ticket not found', HttpStatus.NOT_FOUND);
     }
   
-    let commission = 0;
-  
-    if (ticket.site) {
-      const siteModel = ticket.site as any;
-      commission += siteModel.baseCommission;
-      commission += (ticket.amount * siteModel.percentageCommission) / 100;
-      commission = Math.min(commission, siteModel.maxCommission);
-      commission = Math.max(commission, siteModel.minCommission);
-  
-      commission = Math.floor(commission * 100);
-    }
-
-    console.log(commission);
-  
-    const line_items = [];
     let eventTicket = ticket.eventTicket;
   
-    if (!(ticket.eventTicket && (ticket.eventTicket as any).price)) {
-      eventTicket = await this.eventTicketModel.findById(
-        ticket.eventTicket.toString(),
-      );
+    if (!eventTicket || !(eventTicket as any).price) {
+      eventTicket = await this.eventTicketModel.findById(ticket.eventTicket.toString());
     }
   
-    line_items.push({
-      price_data: {
-        currency: 'GBP',
-        product_data: {
-          name: (eventTicket as any).name,
+    const ticketPrice = parseFloat((eventTicket as any).price); // Unit price per ticket
+    const totalTickets = ticket.noOfUser; // Number of tickets purchased
+    const siteModel = ticket.site as any;
+    
+    // Calculate commission per ticket
+    let commissionPerTicket = parseFloat((ticketPrice * (siteModel.percentageCommission/100)).toFixed(2)) <= siteModel.baseCommission ? siteModel.baseCommission : parseFloat((ticketPrice * (siteModel.percentageCommission/100)).toFixed(2)); // Minimum £1 or 20% of ticket price
+    commissionPerTicket = Math.min(commissionPerTicket, siteModel.maxCommission);
+    commissionPerTicket = Math.max(commissionPerTicket, siteModel.minCommission);
+    // Calculate total commission
+    const totalCommission = commissionPerTicket * totalTickets;
+  
+    // Calculate total purchaser checkout price (ticket price + commission)
+    const totalPurchaserPrice = (ticket.amount + totalCommission); // in pence (stripe requires amount in smallest currency unit)
+  
+    console.log(`Commission per ticket: £${commissionPerTicket}`);
+    console.log(`Total Commission for ${totalTickets} tickets: £${totalCommission}`);
+    console.log(`Total Purchaser Checkout Price per ticket: £${totalPurchaserPrice}`);
+  
+    const line_items = [
+      {
+        price_data: {
+          currency: 'GBP',
+          product_data: {
+            name: (eventTicket as any).name,
+          },
+          unit_amount: (ticketPrice+commissionPerTicket)*100, // Total price for one ticket (includes ticket + commission)
         },
-        unit_amount: (eventTicket as any).price * 100,
+        quantity: totalTickets,
       },
-      quantity: ticket.noOfUser,
-    });
+    ];
   
     const session = await this.stripe.checkout.sessions.create({
       line_items,
       mode: 'payment',
-      success_url: 'http://' + host + '/#/book/' + ticketId + '?success=true',
-      cancel_url: 'http://' + host + '/#/book/' + ticketId + '?success=false',
+      success_url: `http://${host}/#/book/${ticketId}?success=true`,
+      cancel_url: `http://${host}/#/book/${ticketId}?success=false`,
       payment_intent_data: {
-        application_fee_amount: commission,
+        application_fee_amount: totalCommission*100, // Stripe commission in pence
         transfer_data: {
           destination: (ticket.site as any).stripeAccountId,
         },
