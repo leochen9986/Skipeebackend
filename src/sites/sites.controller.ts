@@ -196,33 +196,37 @@ async getSitesOwnedByMe(@FUser() user) {
 }
 
 
-  @Public()
-  @Get('/events')
-  @ApiOperation({ summary: 'Get all events for a site' })
-  @ApiQuery({ name: 'siteId', description: 'Site id', required: false })
-  @ApiQuery({ name: 'status', description: 'Request status', required: false })
-  @ApiQuery({ name: 'search', description: 'Search term', required: false })
-  @ApiQuery({ name: 'siteIds', required: false, isArray: true, type: [String] })
-  @ApiOkResponse({ type: [Event] })
-  async getEvents(
-    @FUser() user,
-    @Query('siteId') siteId: string,
-    @Query('siteIds') siteIds: string[],
-    @Query('status') status: string[] | string,
-    @Query('search') search,
-  ) {
-    // Skip the service call if no valid query parameters are provided
-    if (!siteId && (!siteIds || siteIds.length === 0) && !status && !search) {
-      return {
-        statusCode: 200,
-        message: 'No query parameters provided, returning empty events list',
-        events: [],
-      };
-    }
-  
-    // Pass the parameters to the service if valid
-    return this.sitesService.getEvents(siteId, siteIds, status, search, user);
+@Public()
+@Get('/events')
+@ApiOperation({ summary: 'Get all events for a site' })
+@ApiQuery({ name: 'siteId', description: 'Site id', required: false })
+@ApiQuery({ name: 'status', description: 'Request status', required: false })
+@ApiQuery({ name: 'search', description: 'Search term', required: false })
+@ApiQuery({ name: 'siteIds', required: false, isArray: true, type: [String] })
+@ApiOkResponse({ type: [Event] })
+async getEvents(
+  @FUser() user,
+  @Query('siteId') siteId: string,
+  @Query('siteIds') siteIds: string[],
+  @Query('status') status: string[] | string,
+  @Query('search') search,
+) {
+  // Set default status to 'upcoming' if it's empty or not provided
+  const resolvedStatus = status && status.length > 0 ? status : 'upcoming';
+
+  // Skip the service call if no valid query parameters are provided
+  if (!siteId && (!siteIds || siteIds.length === 0) && !resolvedStatus && !search) {
+    return {
+      statusCode: 200,
+      message: 'No query parameters provided, returning empty events list',
+      events: [],
+    };
   }
+
+  // Pass the parameters to the service if valid
+  return this.sitesService.getEvents(siteId, siteIds, resolvedStatus, search, user);
+}
+
   @Get('/employees')
   @ApiOperation({ summary: 'Get all employees for a site' })
   @ApiOkResponse({ type: [FUser] })
