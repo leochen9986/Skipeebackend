@@ -251,6 +251,10 @@ export class SitesService {
     if (!site.approved) {
       throw new HttpException('Your venue is still in review', HttpStatus.NOT_ACCEPTABLE);
     }
+
+    if (!site.stripeAccountId) {
+      throw new HttpException('Stripe account is not set up for this site', HttpStatus.NOT_ACCEPTABLE);
+    }
   
     // Check if the image field is empty and set a default value if necessary
     const image = createEventDto.image && createEventDto.image.trim() !== ''
