@@ -76,6 +76,8 @@ export class UsersService {
       `<p>Hey,</p>
       <p>Thank you for your interest in Skipee. Your request has been received with the following info:</p>
       <strong>
+        <p>First & Last Name: ${createUserRequestData.name}</p>
+        <p>Phone Number: ${createUserRequestData.phone}</p>
         <p>Email: ${email}</p>
         <p>Organizer Name: ${createUserRequestData.organizerName}</p>
         <p>Date: ${new Date().toLocaleString()}</p>
@@ -98,6 +100,8 @@ export class UsersService {
       <p>Hey,</p>
       <p>A new user join request has been submitted with the following details:</p>
       <strong>
+        <p>First & Last Name: ${createUserRequestData.name}</p>
+        <p>Phone Number: ${createUserRequestData.phone}</p>      
         <p>Email: ${email}</p>
         <p>Organizer Name: ${createUserRequestData.organizerName}</p>
         <p>Date: ${new Date().toLocaleString()}</p>
@@ -178,43 +182,47 @@ export class UsersService {
     // Mark the request as approved
     userRequest.approved = true;
     await userRequest.save();
-    // await this.emailService.sendEmail(
-    //   updatedUser.email,
-    //   'Approved User Request',
-    //   'Hey, thank you for your interest in Skipee. Your request has been approves.',
-    //   `<p>Hey,</p>
-    //   <p>Thank you for your interest in Skipee. Your request has been approved with the following info: </p>
-    //   <strong>
-    //     <p>Email: ${updatedUser.email}</p>
-    //     <p>Organizer Name: ${updatedUser.organizerName}</p>
-    //     <p>Approval Date: ${new Date().toLocaleString()}</p>
-    //   </strong>
-    //   <p>Please create an account now.</p> 
-    //    <strong><p>Regards,</p><p>Skipee Team</p> </strong>`,
-    // );
-    // await this.emailService.sendEmail(
-    //   'info@skipee.co.uk',
-    //   'Approved User Request - Skipee - ' + updatedUser.organizerName,
-    //   'Hey, a user join request has been approved by ' +
-    //     updatedUser.organizerName +
-    //     ' | Email: ' +
-    //     updatedUser.email +
-    //     ' | Date: ' +
-    //     new Date() +
-    //     '.',
-    //   `
-    //   <p>Hey,</p>
-    //   <p>A user join request has been approved with the following details:</p>
-    //   <strong>
-    //     <p>Email: ${updatedUser.email}</p>
-    //     <p>Organizer Name: ${updatedUser.organizerName}</p>
-    //     <p>Approval Date: ${new Date().toLocaleString()}</p>
-    //   </strong>
-    //   <p>Please create an account now.</p>
+    await this.emailService.sendEmail(
+      userRequest.email,
+      'Approved User Request',
+      'Hey, thank you for your interest in Skipee. Your request has been approves.',
+      `<p>Hey,</p>
+      <p>Thank you for your interest in Skipee. Your request has been approved with the following info: </p>
+      <strong>
+        <p>First & Last Name: ${userRequest.name}</p>
+        <p>Phone Number: ${userRequest.phone}</p>      
+        <p>Email: ${userRequest.email}</p>
+        <p>Organizer Name: ${userRequest.organizerName}</p>
+        <p>Approval Date: ${new Date().toLocaleString()}</p>
+      </strong>
+      <p>Please create an account now.</p> 
+       <strong><p>Regards,</p><p>Skipee Team</p> </strong>`,
+    );
+    await this.emailService.sendEmail(
+      'info@skipee.co.uk',
+      'Approved User Request - Skipee - ' + userRequest.organizerName,
+      'Hey, a user join request has been approved by ' +
+      userRequest.organizerName +
+        ' | Email: ' +
+        userRequest.email +
+        ' | Date: ' +
+        new Date() +
+        '.',
+      `
+      <p>Hey,</p>
+      <p>A user join request has been approved with the following details:</p>
+      <strong>
+        <p>First & Last Name: ${userRequest.name}</p>
+        <p>Phone Number: ${userRequest.phone}</p>
+        <p>Email: ${userRequest.email}</p>
+        <p>Organizer Name: ${userRequest.organizerName}</p>
+        <p>Approval Date: ${new Date().toLocaleString()}</p>
+      </strong>
+      <p>Please create an account now.</p>
 
-    //   <strong><p>Regards,</p><p>Skipee Team</p> </strong>
-    //   `,
-    // );
+      <strong><p>Regards,</p><p>Skipee Team</p> </strong>
+      `,
+    );
     return { message: 'User request approved and user created', user: newUser };
   }
 
