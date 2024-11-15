@@ -75,6 +75,7 @@ export class Event {
 
   @Prop({ default: false })
   singleEvent: boolean;
+  
 
 }
 

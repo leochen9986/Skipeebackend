@@ -12,7 +12,7 @@ import { Event, eventStatus } from './schemas/event.schema';
 import { CreateEventTicketDto } from './dto/create-event-tickets.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 import { User } from 'src/users/schemas/user.schema';
-
+import { UpdateSiteDto } from './dto/update-site.dto';
 
 @Injectable()
 export class SitesService {
@@ -92,6 +92,35 @@ export class SitesService {
     return result;
   }
 
+  async updateSite(id: string, updateSiteDto: UpdateSiteDto, userId: string): Promise<Site> {
+    // Validate ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new HttpException('Invalid site ID', HttpStatus.BAD_REQUEST);
+    }
+
+    const site = await this.siteModel.findById(id);
+
+    if (!site) {
+      throw new HttpException('Site not found', HttpStatus.NOT_FOUND);
+    }
+
+    // Optional: Check if the user is authorized to update the site
+    // For example, only the owner or an admin can update the site
+    if (site.owner.toString() !== userId.toString()) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    // Update the site with the new data
+    Object.assign(site, updateSiteDto);
+
+    const updatedSite = await site.save();
+
+    if (!updatedSite) {
+      throw new HttpException('Failed to update site', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    return updatedSite;
+  }
 
   async getPaginatedSites(
     search: string,

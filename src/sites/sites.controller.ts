@@ -29,6 +29,7 @@ import { FUser } from 'src/auth/decorator/user.decorator';
 import { CreateEventDto } from './dto/create-events.dto';
 import { Event } from './schemas/event.schema';
 import { CreateEventTicketDto } from './dto/create-event-tickets.dto';
+import { UpdateSiteDto } from './dto/update-site.dto'; // Create this DTO
 import { EventTicket } from './schemas/event-ticket.schema';
 
 @Controller('sites')
@@ -45,6 +46,20 @@ export class SitesController {
   createSite(@Body() createSiteDto: CreateSiteDto, @FUser() user) {
     return this.sitesService.createSite(createSiteDto, user._id);
   }
+
+  @Put('/:id')
+  @ApiOperation({ summary: 'Update a site by id' })
+  @ApiParam({ name: 'id', description: 'Site id' })
+  @ApiBody({ type: UpdateSiteDto }) // Use UpdateSiteDto for validation
+  @ApiOkResponse({ type: Site })
+  async updateSite(
+    @Param('id') id: string,
+    @Body() updateSiteDto: UpdateSiteDto,
+    @FUser() user,
+  ) {
+    return this.sitesService.updateSite(id, updateSiteDto, user._id);
+  }
+
 
   @Get()
   @Public()
