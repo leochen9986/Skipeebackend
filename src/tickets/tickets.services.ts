@@ -7,6 +7,7 @@ import Stripe from 'stripe';
 import { EventTicket } from 'src/sites/schemas/event-ticket.schema';
 import { Site } from 'src/sites/schemas/sites.schema';
 import { EmailService } from 'src/email/email.service';
+import * as QRCode from 'qrcode';
 
 @Injectable()
 export class TicketsServices {
@@ -20,6 +21,24 @@ export class TicketsServices {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2024-06-20',
     });
+  }
+  async generateQRCode(value: string): Promise<string> {
+    try {
+      // Generate a QR code and return it as a Base64 string
+      const qrCodeDataURL = await QRCode.toDataURL(value, {
+        errorCorrectionLevel: 'H', // High error correction level
+        type: 'image/png', // Output as PNG
+        margin: 2, // Add some margin around the QR code
+        width: 256, // Set width
+      });
+      return qrCodeDataURL;
+    } catch (error) {
+      console.error('Error generating QR Code:', error);
+      throw new HttpException(
+        'Failed to generate QR code',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async createTicket(ticket: CreateTicketDto) {
@@ -96,6 +115,7 @@ async confirmTicket(id: string) {
   }
   const session = await this.stripe.checkout.sessions.retrieve(ticket.stripeSessionId);
   if (session.payment_status === 'paid') {
+    const qrCodeDataURL = await this.generateQRCode(ticket._id.toString());
     // Payment successful, confirm the ticket
     const result = await this.ticketModel.findByIdAndUpdate(id, {
       isConfirmed: true,
@@ -120,7 +140,6 @@ async confirmTicket(id: string) {
       'Ticket Confirmation Skipee',
       'Your ticket has been confirmed',
       `
-<!DOCTYPE html>
 <html>
 <head>
   <style>
@@ -330,7 +349,7 @@ async confirmTicket(id: string) {
 
       <!-- QR Code -->
       <div class="qr-code">
-        <img src="your-qr-code-url-here" alt="QR Code">
+        <img src="${qrCodeDataURL}" alt="QR Code">
       </div>
 
       <!-- Access Ticket Button -->
