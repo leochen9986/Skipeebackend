@@ -174,10 +174,12 @@ async confirmTicket(id: string) {
       text-align: center;
       padding: 10px;
       color: white;
-      font-weight: 1px;
+      font-weight: bold;
       font-size: 16px;
       text-transform: uppercase;
       border-radius: 10px;
+      margin: 0 auto;
+      display: inline-block;
     }
 
     .content {
@@ -277,11 +279,19 @@ async confirmTicket(id: string) {
 <body>
   <div class="email-container">
     <!-- Banner -->
-    <div class="header-banner">
-        <div class="header-text ">
-            Happy Skipping
-        </div>
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td align="center" style="padding: 15px; background-color: #ffffff;">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td align="center" style="background-color: #1DB954; padding: 10px; border-radius: 10px; color: #ffffff; font-size: 16px; text-transform: uppercase;">
+                Happy Skipping
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
     
     <!-- Main Content -->
     <div class="content">
