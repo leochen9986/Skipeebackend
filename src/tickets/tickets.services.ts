@@ -120,31 +120,237 @@ async confirmTicket(id: string) {
       'Ticket Confirmation Skipee',
       'Your ticket has been confirmed',
       `
-      <h1>Ticket Confirmation</h1>
-      <p>Hi ${ticket.name},</p>
-      <p>Thank you for using Skipee. Your ticket has been confirmed.</p>
-      <h2>Your ticket details are:</h2>
-      <ul>
-          <li>Name: ${ticket.name}</li>
-          <li>Email: ${ticket.phone}</li>
-          <li>Event Name: ${(eventTicket.event as any).name}</li>
-          <li>Ticket Name: ${(eventTicket as any).name}</li>
-          <li>Quantity: ${ticket.noOfUser}</li>
-          <li>Price: ${(eventTicket as any).price} / Person</li>
-          <li>Total Amount: ${ticket.amount}</li>
-      </ul>
-      <h2>Event Details</h2>
-      <ul>
-          <li>Name: ${(eventTicket.event as any).name}</li>
-          <li>Time: ${(eventTicket.event as any).startTime} | ${(eventTicket.event as any).endTime}</li>
-          <li>Location: ${(eventTicket.event as any).location}</li>
-          <li>Host: ${(eventTicket.site as any).name}</li>
-      </ul>
-      <br/>
-      <strong><a href="http://104.248.165.72:3000/#/book/${ticket._id}?success=true">Link to get your ticket</a></strong>
-      <br/>
-      <p>Thank you for using Skipee.</p>
-      <p>Skipee Team</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .header-banner {
+      background-color: #ffffff;
+      text-align: center;
+      padding: 15px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: uppercase;
+      justify-content: center;
+      justify-items: center;
+    }
+    .header-text {
+      background-color: #1DB954;
+      width: 30%;
+      text-align: center;
+      padding: 10px;
+      color: white;
+      font-weight: 1px;
+      font-size: 16px;
+      text-transform: uppercase;
+      border-radius: 10px;
+    }
+
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+    .content h1 {
+      font-size: 24px;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    .content h1 span {
+      font-style: italic;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 25px;
+    }
+    .content p {
+      font-size: 12px;
+      color: #8d8d8d;
+      margin-bottom: 20px;
+    }
+    .details-section {
+      text-align: left;
+      margin: 20px 0;
+    }
+    .details-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-section td {
+  padding: 8px 10px;
+  vertical-align: top;
+}
+
+.details-section td.label {
+  text-align: left; /* Ensure the first column is left-aligned */
+  font-weight: normal;
+  color: #666; /* Adjust color for labels */
+}
+
+.details-section td.value {
+  text-align: right; /* Right-align the second column */
+  font-weight: bold;
+  color: #333; /* Adjust color for values */
+
+}
+
+.details-section .total-row td {
+  font-weight: bold;
+  border-top: 3px solid #1DB954; /* Add a line above the total */
+  border-bottom: 3px solid #1DB954;
+  padding-top: 10px;
+}
+    .qr-code {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .qr-code img {
+      width: 120px;
+      height: 120px;
+    }
+    .access-ticket {
+      display: inline-block;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #666;
+    }
+    .footer a {
+      color: #28a745;
+      text-decoration: none;
+    }
+    .logo {
+      margin: 10px auto;
+    }
+    .logo img {
+      max-width: 150px;
+    }
+    .footer-note {
+      font-style: italic;
+      margin-top: 10px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <!-- Banner -->
+    <div class="header-banner">
+        <div class="header-text ">
+            Happy Skipping
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content">
+      <h1>YOUR <span>TICKET</span> IS CONFIRMED!</h1>
+      <hr style="border: none; border-top: 2px dotted #ccc; margin: 10px 0;">
+      <p>Hi ${ticket.name}, Thank you for using Skipee, your ticket is ready - let the skipping begin!</p>
+      
+      <!-- Ticket Details -->
+      <h2 style="margin-top: 30px; font-size: 18px;">Ticket Details</h2>
+      <div class="details-section">
+        <table>
+          <tr>
+            <td class="label">Name</td>
+            <td class="value">${ticket.name}</td>
+          </tr>
+          <tr>
+            <td class="label">Email</td>
+            <td class="value">${ticket.phone}</td>
+          </tr>
+          <tr>
+            <td class="label">Event Name</td>
+            <td class="value">${(eventTicket.event as any).name}</td>
+          </tr>
+          <tr>
+            <td class="label">Ticket Name</td>
+            <td class="value">${(eventTicket as any).name}</td>
+          </tr>
+          <tr>
+            <td class="label">Price</td>
+            <td class="value">£  ${(eventTicket as any).price}</td>
+          </tr>
+          <tr>
+            <td class="label">Quantity</td>
+            <td class="value">${ticket.noOfUser}</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total Amount</td>
+            <td class="value">£ ${ticket.amount}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Event Details -->
+      <h2 style="margin-top: 30px; font-size: 18px;">Event Details</h2>
+      <div class="details-section">
+        <table>
+          <tr>
+            <td class="label">Event Name</td>
+            <td class="value">${(eventTicket.event as any).name}</td>
+          </tr>
+          <tr>
+            <td class="label">Time</td>
+            <td class="value">${(eventTicket.event as any).startTime} | ${(eventTicket.event as any).endTime}</td>
+          </tr>
+          <tr>
+            <td class="label">Location</td>
+            <td class="value">${(eventTicket.event as any).location}</td>
+          </tr>
+          <tr>
+            <td class="label">Host</td>
+            <td class="value">${(eventTicket.site as any).name}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- QR Code -->
+      <div class="qr-code">
+        <img src="your-qr-code-url-here" alt="QR Code">
+      </div>
+
+      <!-- Access Ticket Button -->
+      <a href="http://104.248.165.72:3000/#/book/${ticket._id}?success=true" class="access-ticket">
+        Access Your Ticket
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Notice something wrong? Contact us at <a href="mailto:support@skipee.com">support@skipee.com</a> and we'll be happy to help.</p>
+      <div class="logo">
+        <img src="https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=cf012fd8-37eb-46c6-bcdb-2ee9cad76379" alt="Skipee Logo">
+      </div>
+      <p class="footer-note">Thank You for being a Great Customer</p>
+    </div>
+  </div>
+</body>
+</html>
+
       `,
     );
 
