@@ -8,38 +8,62 @@ import { EventTicket } from 'src/sites/schemas/event-ticket.schema';
 import { Site } from 'src/sites/schemas/sites.schema';
 import { EmailService } from 'src/email/email.service';
 import * as QRCode from 'qrcode';
+import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { firebaseApp } from '../firebase.service'; // Import your Firebase service
 
 @Injectable()
 export class TicketsServices {
-  stripe: Stripe;
+  private stripe: Stripe;
+  private storage: any;
+
   constructor(
     @InjectModel(Ticket.name) private readonly ticketModel: Model<Ticket>,
-    @InjectModel(EventTicket.name)
-    private readonly eventTicketModel: Model<EventTicket>,
+    @InjectModel(EventTicket.name) private readonly eventTicketModel: Model<EventTicket>,
     private readonly emailService: EmailService,
   ) {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2024-06-20',
     });
+
+    // Initialize Firebase storage
+    this.storage = getStorage(firebaseApp);
   }
-  async generateQRCode(value: string): Promise<string> {
+
+
+  /**
+   * Generate a QR code, upload it to Firebase Storage, and return the public URL.
+   * @param value - The value to encode in the QR code.
+   * @param ticketId - The ID of the ticket to uniquely name the QR code.
+   */
+  async generateAndUploadQRCode(value: string, ticketId: string): Promise<string> {
     try {
-      // Generate a QR code and return it as a Base64 string
+      // Generate QR code as a Base64 string
       const qrCodeDataURL = await QRCode.toDataURL(value, {
         errorCorrectionLevel: 'H', // High error correction level
-        type: 'image/png', // Output as PNG
-        margin: 2, // Add some margin around the QR code
-        width: 256, // Set width
+        type: 'image/png',         // Output as PNG
+        margin: 2,                 // Add some margin around the QR code
+        width: 256,                // Set width
       });
-      return qrCodeDataURL;
+
+      // Get a reference to the Firebase storage bucket
+      const qrCodeRef = ref(this.storage, `qr-codes/${ticketId}.png`);
+
+      // Upload the QR code to Firebase
+      await uploadString(qrCodeRef, qrCodeDataURL, 'data_url');
+
+      // Get the public URL of the uploaded QR code
+      const qrCodeUrl = await getDownloadURL(qrCodeRef);
+
+      return qrCodeUrl;
     } catch (error) {
-      console.error('Error generating QR Code:', error);
+      console.error('Error generating or uploading QR Code:', error);
       throw new HttpException(
-        'Failed to generate QR code',
+        'Failed to generate and upload QR code',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
+
 
   async createTicket(ticket: CreateTicketDto) {
     const eventTicket = await this.eventTicketModel.findById(ticket.eventTicket);
@@ -115,11 +139,18 @@ async confirmTicket(id: string) {
   }
   const session = await this.stripe.checkout.sessions.retrieve(ticket.stripeSessionId);
   if (session.payment_status === 'paid') {
-    const qrCodeDataURL = await this.generateQRCode(ticket._id.toString());
+    const qrCodeUrl = await this.generateAndUploadQRCode(ticket._id.toString(), ticket._id.toString());
+
     // Payment successful, confirm the ticket
-    const result = await this.ticketModel.findByIdAndUpdate(id, {
-      isConfirmed: true,
-    }, { new: true });
+    const result = await this.ticketModel.findByIdAndUpdate(
+      id,
+      {
+        isConfirmed: true,
+        qrCodeUrl, // Save the QR code URL to the ticket document
+      },
+      { new: true },
+    );
+    console.log(qrCodeUrl);
     if (!result) {
       throw new HttpException('Failed to confirm ticket', HttpStatus.NOT_FOUND);
     }
@@ -359,7 +390,7 @@ async confirmTicket(id: string) {
 
       <!-- QR Code -->
       <div class="qr-code">
-        <img src="${qrCodeDataURL}" alt="QR Code">
+         <img src="${qrCodeUrl}" alt="QR Code">
       </div>
 
       <!-- Access Ticket Button -->
@@ -480,7 +511,7 @@ async cancelTicket(id: string) {
           product_data: {
             name: (eventTicket as any).name,
           },
-          unit_amount: (ticketPrice+commissionPerTicket)*100, // Total price for one ticket (includes ticket + commission)
+          unit_amount: Math.round((ticketPrice + commissionPerTicket) * 100), // Total price for one ticket (includes ticket + commission)
         },
         quantity: totalTickets,
       },
@@ -492,7 +523,7 @@ async cancelTicket(id: string) {
       success_url: `http://${host}/#/book/${ticketId}?success=true`,
       cancel_url: `http://${host}/#/book/${ticketId}?success=false`,
       payment_intent_data: {
-        application_fee_amount: totalCommission*100, // Stripe commission in pence
+        application_fee_amount: Math.round(totalCommission*100), // Stripe commission in pence
         transfer_data: {
           destination: (ticket.site as any).stripeAccountId,
         },

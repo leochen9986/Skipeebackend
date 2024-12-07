@@ -34,6 +34,9 @@ export class User {
   organizerName: string;
 
   @Prop({ required: false })
+  logo: string;
+
+  @Prop({ required: false })
   phone: string;
 
   @Prop({ required: false, default: true })

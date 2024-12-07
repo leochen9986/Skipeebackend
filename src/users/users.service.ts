@@ -31,6 +31,20 @@ export class UsersService {
     return updatedUser;
   }
 
+  async uploadLogo(userId: string, logoUrl: string): Promise<User> {
+    const user = await this.userModel.findByIdAndUpdate(
+      userId,
+      { logo: logoUrl },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return user;
+  }
+
   async deleteUser(userId: string) {
     const deletedUser = await this.userModel.findByIdAndDelete(userId);
     if (!deletedUser) {
@@ -167,6 +181,7 @@ export class UsersService {
       password: userRequest.password, // Already hashed
       role: userRequest.role,
       phone: userRequest.phone,
+      logo: 'https://firebasestorage.googleapis.com/v0/b/skipee-ba66f.appspot.com/o/event-images%2Flogo.png?alt=media&token=e2db1b1c-f6c9-46cc-9a35-faba6e31ddb1', 
       organizerName: userRequest.organizerName,
       isActive: true,
       lastSeen: new Date(),

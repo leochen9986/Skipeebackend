@@ -15,6 +15,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportsModule } from './reports/reports.module';
 import { EmailModule } from './email/email.module';
 import { StripeModule } from './stripe/stripe.module';
+import { firebaseApp, firebaseStorage } from './firebase.service'; // Import Firebase app and storage
 
 @Module({
   imports: [
@@ -35,10 +36,10 @@ import { StripeModule } from './stripe/stripe.module';
     StripeModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthService],
-})
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer): any {
-    consumer.apply(ValidateUserMiddleware).forRoutes('*');
-  }
-}
+  providers: [
+    AppService
+    , AuthService, { provide: 'FIREBASE_APP', useValue: firebaseApp, },
+     { provide: 'FIREBASE_STORAGE', useValue: firebaseStorage, 
+      
+     }, ], exports: ['FIREBASE_STORAGE'], 
+     }) export class AppModule implements NestModule { configure(consumer: MiddlewareConsumer): any { consumer.apply(ValidateUserMiddleware).forRoutes('*'); } }

@@ -106,6 +106,8 @@ export class UsersController {
   }
 
 
+
+
   @Get('/approve-request/:id')
   @ApiOperation({
     summary: 'Approve user join request',
@@ -126,6 +128,13 @@ export class UsersController {
   }
 
 
+  @Post('upload-logo/:userId')
+  async uploadLogo(
+    @Param('userId') userId: string,
+    @Body('logoUrl') logoUrl: string,
+  ) {
+    return this.usersService.uploadLogo(userId, logoUrl);
+  }
 
 }
 
