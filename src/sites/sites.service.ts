@@ -58,6 +58,18 @@ export class SitesService {
       );
     }
 
+    let stripeAccountId = null;
+
+  // Check if the user has an existing worksIn site
+  if (owner.worksIn) {
+    const existingSite = await this.siteModel.findById(owner.worksIn);
+
+    if (existingSite) {
+      // Use the stripeAccountId from the existing worksIn site
+      stripeAccountId = existingSite.stripeAccountId;
+    }
+  }    
+
     const ownedSite = await this.siteModel.findOne({
       owner: owner._id,
     });
@@ -79,6 +91,7 @@ export class SitesService {
     const createdSite = new this.siteModel({
       ...createSiteDto,
       owner: owner._id,
+      stripeAccountId: stripeAccountId || null, // Use the existing stripeAccountId or set to null
     });
     const result = await createdSite.save();
     owner.worksIn = result._id;
